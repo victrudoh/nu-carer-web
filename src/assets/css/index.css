@@ -1,0 +1,32 @@
+:root {
+    /* --bg-color: #f4f2e2; */
+    --bg-color: #f2f8ff;
+    --primary-color: #9bd8f0;
+    --secondary-color: #1ebfc2;
+    --accent-color: #000080;
+
+    --btn-green: #3C8829;
+    --btn-red: #FF0000;
+    --btn-muted: #606C80;
+    --bg-dark: #282829;
+
+    --box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.15);
+    --box-shadow-topbar: 5px 5px 23px 10px rgba(0, 0, 0, 0.06);
+
+    --border-radius: 15px;
+
+    --text-white: white;
+    --text-black: black;
+
+    --topbar-height: 106px;
+
+
+
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
