@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Layed from "../Layed";
 
 const AppRoutes = () => {
+  console.log("AppRoutes");
   return (
     <Routes>
       <Route path="/" element={<Layed />}>

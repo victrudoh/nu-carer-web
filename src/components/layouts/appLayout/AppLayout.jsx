@@ -4,7 +4,7 @@ import React from "react";
 import { LayoutStyle, Right } from "./AppLayout.Styles";
 
 // components
-import MainRouter from "../../Routes";
+import AppRoutes from "../../routes/AppRoutes";
 
 const AppLayout = () => {
   return (
@@ -12,7 +12,7 @@ const AppLayout = () => {
       Left
       <Right>
         Right
-        <MainRouter />
+        <AppRoutes />
       </Right>
     </LayoutStyle>
   );

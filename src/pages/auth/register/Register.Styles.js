@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   /* background-color: pink; */
-  height: 100vh;
   display: flex;
 
   // MOBILE
@@ -14,8 +13,9 @@ export const Wrapper = styled.div`
 export const Overlay = styled.div`
   /* background-color: pink; */
   background-color: rgba(72, 72, 72, 0.56);
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  /* overflow-y: hidden; */
 `;
 
 export const LogoIsh = styled.div`
@@ -46,8 +46,8 @@ export const Left = styled.div`
   width: 40%;
   background-image: url(${(props) => props.bg});
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
+  /* height: 100%; */
 
   // Small PC
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -65,7 +65,7 @@ export const Right = styled.div`
   /* background-color: green; */
   width: 60%;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 
   // MOBILE
@@ -82,6 +82,8 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  /* margin: 1rem 0; */
+  padding: 2rem 0;
 `;
 
 export const Title = styled.div`
@@ -93,7 +95,7 @@ export const Title = styled.div`
   margin: 2rem;
 `;
 
-export const Register = styled.div`
+export const Login = styled.div`
   width: 685px;
   /* background-color: orange; */
   display: flex;
@@ -111,6 +113,7 @@ export const Register = styled.div`
   // Small PC
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     margin-right: 4rem;
+    width: 400px;
   }
 
   a {

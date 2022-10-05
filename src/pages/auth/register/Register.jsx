@@ -9,9 +9,9 @@ import {
   Content,
   Title,
   Overlay,
-  Register,
+  Login,
   LogoIsh,
-} from "./Login.Styles";
+} from "./Register.Styles";
 
 // widgets
 import ButtonWidget from "../../../components/widgets/buttonWidget/ButtonWidget";
@@ -20,7 +20,7 @@ import Inputwidget from "../../../components/widgets/inputWidget/Inputwidget";
 // left image
 import bg from "../../../assets/images/login/login-side-img.png";
 
-const Login = () => {
+const Register = () => {
   return (
     <>
       <Wrapper>
@@ -31,22 +31,37 @@ const Login = () => {
         </Left>
         <Right>
           <Content>
-            <Title>Admin Login</Title>
+            <Title>Sign Up</Title>
             <Inputwidget
               type={"text"}
-              placeholder={"e.g sereBlez"}
-              label={"Enter username"}
+              placeholder={"e.g Sarah"}
+              label={"First Name"}
+            />
+            <Inputwidget
+              type={"text"}
+              placeholder={"e.g Banks"}
+              label={"Last Name"}
+            />
+            <Inputwidget
+              type={"text"}
+              placeholder={"e.g SarahBanks07"}
+              label={"Username"}
+            />
+            <Inputwidget
+              type={"email"}
+              placeholder={"e.g SarahBanks07@email.com"}
+              label={"Email"}
             />
             <Inputwidget
               type={"text"}
               placeholder={"At least 8 characters"}
               label={"Password"}
             />
-            <ButtonWidget text={"Login"} />
-            <Register>
-              Dont't have an account?
-              <NavLink to="/register">Register</NavLink>
-            </Register>
+            <ButtonWidget text={"Create Account"} />
+            <Login>
+              Already have an account?
+              <NavLink to="/login">Login</NavLink>
+            </Login>
           </Content>
         </Right>
       </Wrapper>
@@ -54,4 +69,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -1,11 +1,11 @@
 import React from "react";
+import { Button } from "./ButtonWidget.Styles";
 
-const ButtonWidget = () => {
+const ButtonWidget = ({ text, width, color }) => {
   return (
-    <div>ButtonWidget</div>
-    //text
-    // width
-    // color
+    <Button width={width} color={color}>
+      {text}
+    </Button>
   );
 };
 
