@@ -12,11 +12,7 @@ export const LayoutStyle = styled.div`
 export const Right = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
-  width: 100%;
-  margin-left: 260px;
-
-  @media (max-width: 768px) {
-    margin-left: 90px;
-  }
+  background-color: var(--bg-color);
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
 `;

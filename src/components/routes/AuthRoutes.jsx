@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Layed from "../Layed";
 import Login from "../../pages/auth/login/Login";
 import Register from "../../pages/auth/register/Register";
+import Error404 from "../../pages/error404/Error404";
 
 const AuthRoutes = () => {
   return (
@@ -13,7 +14,7 @@ const AuthRoutes = () => {
         <Route index element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={"404"} />
+        <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>
   );

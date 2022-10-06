@@ -5,13 +5,15 @@ import { LayoutStyle, Right } from "./AppLayout.Styles";
 
 // components
 import AppRoutes from "../../routes/AppRoutes";
+import Sidebar from "../../widgets/sidebar/Sidebar";
+import Topbar from "../../widgets/topbar/Topbar";
 
 const AppLayout = () => {
   return (
     <LayoutStyle>
-      Left
+      <Sidebar />
       <Right>
-        Right
+        <Topbar />
         <AppRoutes />
       </Right>
     </LayoutStyle>
