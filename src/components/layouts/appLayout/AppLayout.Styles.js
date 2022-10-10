@@ -16,3 +16,10 @@ export const Right = styled.div`
   margin-left: var(--sidebar-width);
   min-height: 100vh;
 `;
+
+export const RightBody = styled.div`
+  width: 97%;
+  padding: 0.5rem;
+  margin: 0 auto;
+  /* background-color: red; */
+`;

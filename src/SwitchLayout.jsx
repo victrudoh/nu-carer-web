@@ -10,7 +10,7 @@ const SwitchLayout = () => {
   const token = localStorage.getItem("token");
 
   const SelectedDisplay = () => {
-    if (token) {
+    if (!token) {
       return <AuthLayout />;
     } else {
       return <AppLayout />;

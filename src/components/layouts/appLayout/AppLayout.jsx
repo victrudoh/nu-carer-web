@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import { LayoutStyle, Right } from "./AppLayout.Styles";
+import { LayoutStyle, Right, RightBody } from "./AppLayout.Styles";
 
 // components
 import AppRoutes from "../../routes/AppRoutes";
@@ -14,7 +14,9 @@ const AppLayout = () => {
       <Sidebar />
       <Right>
         <Topbar />
-        <AppRoutes />
+        <RightBody>
+          <AppRoutes />
+        </RightBody>
       </Right>
     </LayoutStyle>
   );

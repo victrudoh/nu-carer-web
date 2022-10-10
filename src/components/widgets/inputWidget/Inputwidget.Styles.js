@@ -10,9 +10,9 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
   padding: 0.5em;
   border: 2px solid rgba(72, 72, 72, 0.7);
-  height: 65px;
+  height: ${(props) => (props.width === "md" ? "45px" : "65px")};
   /* width: 685px; */
-  width: ${(props) => (props.width === "md" ? "370px" : "685px")};
+  width: ${(props) => (props.width === "md" ? "470px" : "685px")};
   /* color: rgba(72, 72, 72, 0.56); */
   font-family: "Inter";
   font-style: normal;
@@ -22,7 +22,7 @@ export const Input = styled.input`
   // Small PC
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     width: ${(props) => (props.width === "md" ? "170px" : "400px")};
-    height: 60px;
+    height: ${(props) => (props.width === "md" ? "40px" : "60px")};
   }
 
   // TAB

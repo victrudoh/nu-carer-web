@@ -1,7 +1,17 @@
 import React from "react";
 
-const SearchWidget = () => {
-  return <div>SearchWidget</div>;
+// styles
+import { Wrapper, Input } from "./SearchWidget.Styles";
+
+const SearchWidget = ({ placeholder }) => {
+  return (
+    <>
+      <Wrapper>
+        <i className="bx bx-search-alt"></i>
+        <Input type={"search"} placeholder={"placeholder"} />
+      </Wrapper>
+    </>
+  );
 };
 
 export default SearchWidget;

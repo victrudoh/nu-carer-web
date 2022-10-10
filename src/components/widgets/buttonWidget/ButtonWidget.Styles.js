@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  height: 80px;
+  height: ${(props) => (props.width === "md" ? "45px" : "80px")};
   border-radius: 14px;
   margin: 1rem 0;
   width: ${(props) => (props.width === "md" ? "170px" : "683px")};

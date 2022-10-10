@@ -8,7 +8,12 @@ import Summary from "./summary/Summary";
 import Timesheet from "./timesheet/Timesheet";
 
 const Caregivers = () => {
-  return <div>Caregivers</div>;
+  return (
+    <>
+      <List />
+      <Add />
+    </>
+  );
 };
 
 export default Caregivers;
