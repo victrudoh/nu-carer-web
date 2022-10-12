@@ -27,7 +27,7 @@ export const Left = styled.div`
 
 export const Right = styled.div`
   /* background-color: var(--text-grey); */
-  width: 35%;
+  width: 320px;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -44,11 +44,12 @@ export const Right = styled.div`
 
 export const NameRoleImage = styled.div`
   /* background-color: orange; */
-  width: 60%;
+  width: 200px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   text-align: center;
+  gap: 0.3rem;
 `;
 
 export const NameRole = styled.div`
@@ -58,7 +59,7 @@ export const NameRole = styled.div`
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
 `;
 
 export const Name = styled.div`
@@ -80,6 +81,8 @@ export const Button = styled.button`
   height: 20px;
   font-weight: 800;
   font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--text-white);
   background-color: var(--btn-red);
   padding: 1.5rem 2.5rem;

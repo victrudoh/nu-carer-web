@@ -1,10 +1,12 @@
 import React from "react";
-import ContainerWidget from "../../../../components/widgets/containerWidget/ContainerWidget";
-import DateFilterWidget from "../../../../components/widgets/dateFilterWidget/DateFilterWidget";
-import InfoCardShortWidget from "../../../../components/widgets/infoCardShortWidget/InfoCardShortWidget";
-import TopContainerWidget from "../../../../components/widgets/topContainerWidget/TopContainer";
 
-const Summary = () => {
+// widgets
+import TopContainerWidget from "../../../../components/widgets/topContainerWidget/TopContainer";
+import ContainerWidget from "../../../../components/widgets/containerWidget/ContainerWidget";
+import InfoCardShortWidget from "../../../../components/widgets/infoCardShortWidget/InfoCardShortWidget";
+import DateFilterWidget from "../../../../components/widgets/dateFilterWidget/DateFilterWidget";
+
+const ResidentSummary = () => {
   return (
     <>
       <TopContainerWidget>
@@ -56,4 +58,4 @@ const Summary = () => {
   );
 };
 
-export default Summary;
+export default ResidentSummary;

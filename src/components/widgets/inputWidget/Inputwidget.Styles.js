@@ -10,9 +10,11 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
   padding: 0.5em;
   border: 2px solid rgba(72, 72, 72, 0.7);
-  height: ${(props) => (props.width === "md" ? "45px" : "65px")};
+  /* height: ${(props) => (props.width === "md" ? "45px" : "65px")}; */
+  height: ${(props) => props.height || "65px"};
   /* width: 685px; */
-  width: ${(props) => (props.width === "md" ? "470px" : "685px")};
+  /* width: ${(props) => (props.width === "md" ? "470px" : "685px")}; */
+  width: ${(props) => props.width || "685px"};
   /* color: rgba(72, 72, 72, 0.56); */
   font-family: "Inter";
   font-style: normal;

@@ -8,7 +8,7 @@ const SearchWidget = ({ placeholder }) => {
     <>
       <Wrapper>
         <i className="bx bx-search-alt"></i>
-        <Input type={"search"} placeholder={"placeholder"} />
+        <Input type={"search"} placeholder={placeholder} />
       </Wrapper>
     </>
   );

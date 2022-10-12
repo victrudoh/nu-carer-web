@@ -11,28 +11,20 @@ import SearchWidget from "../../../../components/widgets/searchWidget/SearchWidg
 import AddBtnWidget from "../../../../components/widgets/addBtnWidget/AddBtnWidget";
 
 const List = () => {
-  const { caregiverHandler, setCaregiverHandler } = useContext(AppContext);
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const subMenuHandler = (e) => {
-    setIsMenuOpen(!isMenuOpen);
-    console.log(e.target.id);
-    isMenuOpen ? console.log("Open") : console.log("Close");
-  };
+  const { residentHandler, setResidentHandler } = useContext(AppContext);
 
   // const addHandler = (e) => {
   const addHandler = () => {
     // console.log("ADD", e);
-    setCaregiverHandler({
-      ...caregiverHandler,
+    setResidentHandler({
+      ...residentHandler,
       action: "add",
     });
   };
 
   const onchangeHandler = (e) => {
     e.persist();
-    setCaregiverHandler((item) => ({
+    setResidentHandler((item) => ({
       ...item,
       action: e.target.value,
     }));
@@ -41,9 +33,9 @@ const List = () => {
   return (
     <Wrapper>
       <TopContainerWidget>
-        <SearchWidget placeholder={"Search name"} />
+        <SearchWidget placeholder={"Search for Resident"} />
         <AddBtnWidget
-          text={"Add Support Worker"}
+          text={"Add Resident"}
           // onclick={(e) => addHandler(e)}
           onclick={() => addHandler()}
         />
@@ -54,10 +46,10 @@ const List = () => {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone</th>
+              <th scope="col">Age</th>
               <th scope="col">Gender</th>
-              <th scope="col">Address</th>
+              <th scope="col">Contact</th>
+              <th scope="col">Asign Care Giver</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -68,45 +60,19 @@ const List = () => {
               <td>Otto@gmail.com</td>
               <td>07184556221</td>
               <td>Male</td>
-              <td>Vanderpouyer</td>
               <td>
                 <select name="#" id="#" onChange={onchangeHandler}>
-                  <option value="">...</option>
-                  <option value="timesheet">View Timesheet</option>
-                  <option value="summary">View Summary sheet</option>
-                  <option value="edit">Edit</option>
-                  <option value="delete">Delete</option>
+                  <option value="">Select Care Giver</option>
+                  <option value="timesheet">Keanu Reaves</option>
+                  <option value="timesheet">Keanu Reaves</option>
+                  <option value="timesheet">Keanu Reaves</option>
+                  <option value="timesheet">Keanu Reaves</option>
                 </select>
               </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Maximillian RObin</td>
-              <td>Otto@gmail.com</td>
-              <td>07184556221</td>
-              <td>Male</td>
-              <td>Vanderpouyer</td>
               <td>
                 <select name="#" id="#" onChange={onchangeHandler}>
                   <option value="">...</option>
-                  <option value="timesheet">View Timesheet</option>
-                  <option value="summary">View Summary sheet</option>
-                  <option value="edit">Edit</option>
-                  <option value="delete">Delete</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Maximillian RObin</td>
-              <td>Otto@gmail.com</td>
-              <td>07184556221</td>
-              <td>Male</td>
-              <td>Vanderpouyer</td>
-              <td>
-                <select name="#" id="#" onChange={onchangeHandler}>
-                  <option value="">...</option>
-                  <option value="timesheet">View Timesheet</option>
+                  <option value="careplan">View Care plan</option>
                   <option value="summary">View Summary sheet</option>
                   <option value="edit">Edit</option>
                   <option value="delete">Delete</option>

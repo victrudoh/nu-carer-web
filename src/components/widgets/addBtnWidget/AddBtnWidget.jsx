@@ -3,9 +3,9 @@ import React from "react";
 // styles
 import { Button } from "./AddBtnWidget.Styles";
 
-const AddBtnWidget = ({ text }) => {
+const AddBtnWidget = ({ text, onclick }) => {
   return (
-    <Button>
+    <Button onClick={(e) => onclick(e)}>
       {text}
       <i className="bx bxs-plus-circle"></i>
     </Button>

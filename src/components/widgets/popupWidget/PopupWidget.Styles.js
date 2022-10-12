@@ -9,14 +9,18 @@ export const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Content = styled.div`
   box-sizing: border-box;
-  width: 80%;
-  margin: 5% auto;
-  left: 0px;
-  top: 0px;
+  width: 70%;
+  /* margin: 5% auto; */
+  /* left: 0px; */
+  /* top: 0px; */
   background: #ffffff;
   border: 1px solid #ffffff;
   border-radius: 30px;

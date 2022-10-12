@@ -6,35 +6,31 @@ import AppContext from "../../../context/AppContext";
 import Add from "./add/Add";
 import Edit from "./edit/Edit";
 import List from "./list/List";
-import Summary from "./summary/Summary";
-import Timesheet from "./timesheet/Timesheet";
 
-const Caregivers = () => {
-  const { caregiverHandler } = useContext(AppContext);
+const Residents = () => {
+  const { residentHandler } = useContext(AppContext);
 
   const navigate = useNavigate();
 
   const Display = () => {
-    if (caregiverHandler.action === "add") {
+    if (residentHandler.action === "add") {
       return (
         <>
           <List />
           <Add />
         </>
       );
-    } else if (caregiverHandler.action === "edit") {
+    } else if (residentHandler.action === "edit") {
       return (
         <>
           <List />
           <Edit />
         </>
       );
-    } else if (caregiverHandler.action === "summary") {
-      navigate("/admin/caregivers/summary");
-      // return <Summary />;
-    } else if (caregiverHandler.action === "timesheet") {
-      navigate("/admin/caregivers/timesheet");
-      // return <Timesheet />;
+    } else if (residentHandler.action === "summary") {
+      navigate("/admin/residents/summary");
+    } else if (residentHandler.action === "careplan") {
+      navigate("/admin/residents/careplan");
     } else {
       return <List />;
     }
@@ -43,8 +39,9 @@ const Caregivers = () => {
   return (
     <>
       <Display />
+      {/* <List /> */}
     </>
   );
 };
 
-export default Caregivers;
+export default Residents;

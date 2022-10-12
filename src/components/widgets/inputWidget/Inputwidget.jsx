@@ -1,7 +1,17 @@
 import React from "react";
 import { Wrapper, Input, Label } from "./Inputwidget.Styles";
 
-const Inputwidget = ({ label, width, placeholder, type, name, id }) => {
+const Inputwidget = ({
+  label,
+  width,
+  height,
+  placeholder,
+  type,
+  name,
+  defaultValue,
+  required,
+  onChange,
+}) => {
   return (
     <>
       <Wrapper>
@@ -12,6 +22,10 @@ const Inputwidget = ({ label, width, placeholder, type, name, id }) => {
           type={type}
           placeholder={placeholder}
           width={width}
+          height={height}
+          defaultValue={defaultValue}
+          onChange={(e) => onChange(e)}
+          required={required ? required : ""}
         />
       </Wrapper>
     </>

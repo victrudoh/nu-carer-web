@@ -19,7 +19,24 @@ const toggleMenuHandler = () => {
 };
 
 const Sidebar = () => {
-  const { setTopbarTitle } = useContext(AppContext);
+  const { setTopbarTitle, setCaregiverHandler, setResidentHandler } =
+    useContext(AppContext);
+
+  const caregiverHandler = () => {
+    setTopbarTitle("Support Workers");
+    setCaregiverHandler((item) => ({
+      ...item,
+      action: "list",
+    }));
+  };
+
+  const residentHandler = () => {
+    setTopbarTitle("Residents");
+    setResidentHandler((item) => ({
+      ...item,
+      action: "list",
+    }));
+  };
 
   return (
     <>
@@ -34,18 +51,18 @@ const Sidebar = () => {
 
           <SidebarDown>
             <NavLink
-              onClick={() => setTopbarTitle("Support Workers")}
+              onClick={() => caregiverHandler()}
               activeClassName="active"
               exact
-              to="/caregivers"
+              to="/admin/caregivers"
             >
               <span className="bx bx-category-alt"></span>
               <h3>Support Workers</h3>
             </NavLink>
             <NavLink
-              onClick={() => setTopbarTitle("Residents")}
+              onClick={() => residentHandler()}
               activeClassName="active"
-              to="/residents"
+              to="/admin/residents"
             >
               <span className="bx bx-user-pin"></span>
               <h3>Residents</h3>
