@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { success, error } from "../../../helpers/Alert";
 
 // Styles
 import {
@@ -16,11 +18,60 @@ import {
 // widgets
 import ButtonWidget from "../../../components/widgets/buttonWidget/ButtonWidget";
 import Inputwidget from "../../../components/widgets/inputWidget/Inputwidget";
+import { CircleSpinner } from "../../../components/widgets/circleSpinner/CircleSpinner.Styles";
 
 // left image
 import bg from "../../../assets/images/login/login-side-img.png";
+import AppContext from "../../../context/AppContext";
 
 const Register = () => {
+  const { authLoading, setAuthLoading } = useContext(AppContext);
+
+  const [newAdmin, setNewAdmin] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
+    media: "",
+  });
+
+  const submit = async (e) => {
+    console.log("newAdmin: ", newAdmin);
+    e.preventDefault();
+    try {
+      setAuthLoading(true);
+      const response = await axios.post(
+        "https://nu-carer-web.herokuapp.com/api/auth/register",
+        newAdmin,
+        {
+          headers: {
+            // "content-type": "application/json",
+            "content-type": "multipart/form-data",
+            // Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setAuthLoading(false);
+      if (response.status === 200) {
+        // success("Created new admin successfully");
+        // getCaregivers();
+      }
+    } catch (err) {
+      error("Couldn't create user");
+      console.log(err);
+      setAuthLoading(false);
+    }
+  };
+
+  const onchangeHandler = (e) => {
+    e.persist();
+    setNewAdmin((item) => ({
+      ...item,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <>
       <Wrapper>
@@ -30,39 +81,73 @@ const Register = () => {
           </Overlay>
         </Left>
         <Right>
-          <Content>
-            <Title>Sign Up</Title>
-            <Inputwidget
-              type={"text"}
-              placeholder={"e.g Sarah"}
-              label={"First Name"}
-            />
-            <Inputwidget
-              type={"text"}
-              placeholder={"e.g Banks"}
-              label={"Last Name"}
-            />
-            <Inputwidget
-              type={"text"}
-              placeholder={"e.g SarahBanks07"}
-              label={"Username"}
-            />
-            <Inputwidget
-              type={"email"}
-              placeholder={"e.g SarahBanks07@email.com"}
-              label={"Email"}
-            />
-            <Inputwidget
-              type={"text"}
-              placeholder={"At least 8 characters"}
-              label={"Password"}
-            />
-            <ButtonWidget text={"Create Account"} />
-            <Login>
-              Already have an account?
-              <NavLink to="/login">Login</NavLink>
-            </Login>
-          </Content>
+          <form onSubmit={submit}>
+            <Content>
+              <Title>Sign Up</Title>
+              <Inputwidget
+                type={"text"}
+                placeholder={"e.g Sarah"}
+                label={"First Name"}
+                name={"firstName"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.firstName}
+              />
+              <Inputwidget
+                type={"text"}
+                placeholder={"e.g Banks"}
+                label={"Last Name"}
+                name={"lastName"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.lastName}
+              />
+              <Inputwidget
+                type={"text"}
+                placeholder={"e.g SarahBanks07"}
+                label={"Username"}
+                name={"userName"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.userName}
+              />
+              <Inputwidget
+                type={"email"}
+                placeholder={"e.g SarahBanks07@email.com"}
+                label={"Email"}
+                name={"email"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.email}
+              />
+              <Inputwidget
+                type={"text"}
+                placeholder={"At least 8 characters"}
+                label={"Password"}
+                name={"password"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.password}
+              />
+              <Inputwidget
+                type={"file"}
+                label={"Display Photo"}
+                name={"media"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newAdmin.media}
+              />
+              {authLoading ? (
+                <CircleSpinner />
+              ) : (
+                <ButtonWidget text={"Create Account"} />
+              )}
+              <Login>
+                Already have an account?
+                <NavLink to="/login">Login</NavLink>
+              </Login>
+            </Content>
+          </form>
         </Right>
       </Wrapper>
     </>

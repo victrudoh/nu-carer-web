@@ -7,7 +7,7 @@ import AppLayout from "./components/layouts/appLayout/AppLayout";
 import AuthLayout from "./components/layouts/authLayout/AuthLayout";
 
 const SwitchLayout = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("nu-token");
 
   const SelectedDisplay = () => {
     if (!token) {

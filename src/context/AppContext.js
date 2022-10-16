@@ -13,6 +13,9 @@ export const AppProvider = ({ children }) => {
   // Topbar Title
   const [topbarTitle, setTopbarTitle] = useState("Dashboard");
 
+  // Loadings
+  const [authLoading, setAuthLoading] = useState(false);
+
   /************
    *********
    ********
@@ -64,8 +67,10 @@ export const AppProvider = ({ children }) => {
           MISC
         */
         topbarTitle,
+        authLoading,
 
         setTopbarTitle,
+        setAuthLoading,
 
         /* ***********
          *********

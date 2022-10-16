@@ -46,8 +46,9 @@ export const Left = styled.div`
   width: 40%;
   background-image: url(${(props) => props.bg});
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  /* height: 100%; */
+  height: 100vh;
 
   // Small PC
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -67,6 +68,8 @@ export const Right = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
+  height: 100vh;
+  overflow-y: scroll;
 
   // MOBILE
   @media only screen and (max-width: 767px) {
