@@ -79,13 +79,13 @@ export const Right = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 80%;
+  width: 90%;
   /* background-color: blue; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* margin: 1rem 0; */
+  margin: 0 auto;
   padding: 2rem 0;
 `;
 

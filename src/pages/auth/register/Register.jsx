@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import CloudinaryUpload from "../../../middlewares/CloudinaryUpload";
 import { success, error } from "../../../helpers/Alert";
 
 // Styles
@@ -36,32 +37,21 @@ const Register = () => {
     media: "",
   });
 
-  const submit = async (e) => {
-    console.log("newAdmin: ", newAdmin);
-    e.preventDefault();
-    try {
-      setAuthLoading(true);
-      const response = await axios.post(
-        "https://nu-carer-web.herokuapp.com/api/auth/register",
-        newAdmin,
-        {
-          headers: {
-            // "content-type": "application/json",
-            "content-type": "multipart/form-data",
-            // Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setAuthLoading(false);
-      if (response.status === 200) {
-        // success("Created new admin successfully");
-        // getCaregivers();
-      }
-    } catch (err) {
-      error("Couldn't create user");
-      console.log(err);
-      setAuthLoading(false);
-    }
+  const uploadImage = async (e) => {
+    setAuthLoading(true);
+    const media = await CloudinaryUpload(e);
+    console.log(
+      "🚀 ~ file: Register.jsx ~ line 43 ~ uploadImage ~ media",
+      media
+    );
+    setNewAdmin((newAdmin) => {
+      return {
+        ...newAdmin,
+        media: media,
+      };
+    });
+    console.log("admin: ", newAdmin);
+    submit();
   };
 
   const onchangeHandler = (e) => {
@@ -70,6 +60,32 @@ const Register = () => {
       ...item,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const submit = async (e) => {
+    // e.preventDefault();
+    console.log("newAdmin: ", newAdmin);
+    try {
+      setAuthLoading(true);
+      const response = await axios.post(
+        "https://nu-carer-web.herokuapp.com/api/auth/register",
+        newAdmin,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      setAuthLoading(false);
+      if (response.status === 200) {
+        success("Registration successful");
+        // getCaregivers();
+      }
+    } catch (err) {
+      error("Couldn't create user");
+      console.log(err);
+      setAuthLoading(false);
+    }
   };
 
   return (
@@ -81,7 +97,7 @@ const Register = () => {
           </Overlay>
         </Left>
         <Right>
-          <form onSubmit={submit}>
+          <form onSubmit={"submit"}>
             <Content>
               <Title>Sign Up</Title>
               <Inputwidget
@@ -121,7 +137,7 @@ const Register = () => {
                 defaultValue={newAdmin.email}
               />
               <Inputwidget
-                type={"text"}
+                type={"password"}
                 placeholder={"At least 8 characters"}
                 label={"Password"}
                 name={"password"}
@@ -134,8 +150,8 @@ const Register = () => {
                 label={"Display Photo"}
                 name={"media"}
                 required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newAdmin.media}
+                onChange={(e) => uploadImage(e)}
+                // defaultValue={newAdmin.media}
               />
               {authLoading ? (
                 <CircleSpinner />
