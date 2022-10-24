@@ -34,45 +34,70 @@ const Register = () => {
     userName: "",
     email: "",
     password: "",
-    media: "",
+    // media: "",
   });
 
-  const uploadImage = async (e) => {
-    setAuthLoading(true);
-    const media = await CloudinaryUpload(e);
-    console.log(
-      "🚀 ~ file: Register.jsx ~ line 43 ~ uploadImage ~ media",
-      media
-    );
-    setNewAdmin((newAdmin) => {
-      return {
-        ...newAdmin,
-        media: media,
-      };
-    });
-    console.log("admin: ", newAdmin);
-    submit();
-  };
+  const formData = new FormData();
+
+  // const uploadImage = async (e) => {
+  //   // setAuthLoading(true);
+  //   // const media = await CloudinaryUpload(e);
+  //   // formData.append("media", media);
+  //   // console.log(
+  //   //   "🚀 ~ file: Register.jsx ~ line 43 ~ uploadImage ~ media",
+  //   //   media
+  //   // );
+  //   // setNewAdmin({
+  //   //   firstName: newAdmin.firstName,
+  //   //   lastName: newAdmin.lastName,
+  //   //   userName: newAdmin.userName,
+  //   //   email: newAdmin.email,
+  //   //   password: newAdmin.password,
+  //   //   media: media,
+  //   // });
+  //   setNewAdmin((newAdmin) => {
+  //     return {
+  //       ...newAdmin,
+  //       media: media,
+  //     };
+  //   });
+  //   console.log("admin: ", newAdmin);
+  //   // submit();
+  // };
 
   const onchangeHandler = (e) => {
     e.persist();
+    // formData.append(e.target.name, e.target.value);
+    // console.log("formData: ", formData);
+
     setNewAdmin((item) => ({
       ...item,
       [e.target.name]: e.target.value,
     }));
   };
 
+  const onFileChangeHandler = (e) => {
+    e.persist();
+    formData.append("media", e.target.files[0]);
+  };
+
   const submit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+    // const media = await CloudinaryUpload(e);
+    // formData.append("admin", newAdmin);
+    // console.log("formData: ", formData);
     console.log("newAdmin: ", newAdmin);
     try {
       setAuthLoading(true);
       const response = await axios.post(
-        "https://nu-carer-web.herokuapp.com/api/auth/register",
+        "https://nu-carer-api.herokuapp.com/api/auth/register",
         newAdmin,
         {
           headers: {
             "content-type": "application/json",
+            // "Content-Type": "multipart/form-data",
+            // Accept: "application/json",
+            // mode: "no-cors",
           },
         }
       );
@@ -97,7 +122,7 @@ const Register = () => {
           </Overlay>
         </Left>
         <Right>
-          <form onSubmit={"submit"}>
+          <form onSubmit={submit}>
             <Content>
               <Title>Sign Up</Title>
               <Inputwidget
@@ -127,6 +152,15 @@ const Register = () => {
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newAdmin.userName}
               />
+              {/* <Inputwidget
+                type={"file"}
+                label={"Display Photo"}
+                name={"media"}
+                required
+                onChange={(e) => onFileChangeHandler(e)}
+                onChange={(e) => uploadImage(e)}
+                defaultValue={newAdmin.media}
+              /> */}
               <Inputwidget
                 type={"email"}
                 placeholder={"e.g SarahBanks07@email.com"}
@@ -144,14 +178,6 @@ const Register = () => {
                 required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newAdmin.password}
-              />
-              <Inputwidget
-                type={"file"}
-                label={"Display Photo"}
-                name={"media"}
-                required
-                onChange={(e) => uploadImage(e)}
-                // defaultValue={newAdmin.media}
               />
               {authLoading ? (
                 <CircleSpinner />

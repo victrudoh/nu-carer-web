@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, error } from "../helpers/Alert";
+import { error } from "../helpers/Alert";
 
 const CloudinaryUpload = async (e) => {
   try {
