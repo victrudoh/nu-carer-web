@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import CloudinaryUpload from "../../../middlewares/CloudinaryUpload";
+// import CloudinaryUpload from "../../../middlewares/CloudinaryUpload";
 import { success, error } from "../../../helpers/Alert";
 
 // Styles
@@ -37,7 +37,9 @@ const Register = () => {
     // media: "",
   });
 
-  const formData = new FormData();
+  const navigate = useNavigate();
+
+  // const formData = new FormData();
 
   // const uploadImage = async (e) => {
   //   // setAuthLoading(true);
@@ -76,17 +78,17 @@ const Register = () => {
     }));
   };
 
-  const onFileChangeHandler = (e) => {
-    e.persist();
-    formData.append("media", e.target.files[0]);
-  };
+  // const onFileChangeHandler = (e) => {
+  //   e.persist();
+  //   formData.append("media", e.target.files[0]);
+  // };
 
   const submit = async (e) => {
     e.preventDefault();
     // const media = await CloudinaryUpload(e);
     // formData.append("admin", newAdmin);
     // console.log("formData: ", formData);
-    console.log("newAdmin: ", newAdmin);
+    // console.log("newAdmin: ", newAdmin);
     try {
       setAuthLoading(true);
       const response = await axios.post(
@@ -95,9 +97,6 @@ const Register = () => {
         {
           headers: {
             "content-type": "application/json",
-            // "Content-Type": "multipart/form-data",
-            // Accept: "application/json",
-            // mode: "no-cors",
           },
         }
       );
@@ -105,6 +104,7 @@ const Register = () => {
       if (response.status === 200) {
         success("Registration successful");
         // getCaregivers();
+        navigate("/login");
       }
     } catch (err) {
       error("Couldn't create user");
