@@ -55,15 +55,15 @@ const Login = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: Login.jsx ~ line 58 ~ submit ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: Login.jsx ~ line 58 ~ submit ~ response",
+      //   response
+      // );
       setAuthLoading(false);
       if (response.status === 200) {
         success("Login Successful");
         const token = response.data.data.token;
-        const userId = response.data.data.user.id;
+        const userId = response.data.data.user._id;
         localStorage.setItem("nu-token", token);
         localStorage.setItem("userId", userId);
         navigate("/");

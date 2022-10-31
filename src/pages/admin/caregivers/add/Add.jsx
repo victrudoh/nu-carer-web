@@ -11,14 +11,21 @@ import PopupWidget from "../../../../components/widgets/popupWidget/PopupWidget"
 import Inputwidget from "../../../../components/widgets/inputWidget/Inputwidget";
 import RowWidget from "../../../../components/widgets/rowWidget/RowWidget";
 import ButtonWidget from "../../../../components/widgets/buttonWidget/ButtonWidget";
+import { CircleSpinner } from "../../../../components/widgets/circleSpinner/CircleSpinner.Styles";
 
 const Add = () => {
-  const { setLoading, caregiverHandler, setCaregiverHandler } =
-    useContext(AppContext);
+  const {
+    addCaregiverLoading,
+    setAddCaregiverLoading,
+    caregiverHandler,
+    setCaregiverHandler,
+    getAllCaregivers,
+  } = useContext(AppContext);
 
   const [newCaregiver, setNewCaregiver] = useState({
     name: "",
     email: "",
+    password: "",
     phone: "",
     address: "",
     media: "",
@@ -36,28 +43,29 @@ const Add = () => {
   const submit = async (e) => {
     console.log("newCaregiver: ", newCaregiver);
     e.preventDefault();
-    // try {
-    //   setLoading(true);
-    //   const response = await axios.post(
-    //     "https://hospital-ms-api.herokuapp.com/users/create",
-    //     newCaregiver,
-    //     {
-    //       headers: {
-    //         "content-type": "application/json",
-    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //       },
-    //     }
-    //   );
-    //   setLoading(false);
-    //   if (response.status === 200) {
-    //     success("Created new user successfully");
-    //     // getCaregivers();
-    //   }
-    // } catch (err) {
-    //   error("Psych");
-    //   console.log(err);
-    //   setLoading(false);
-    // }
+    try {
+      setAddCaregiverLoading(true);
+      const response = await axios.post(
+        "https://nu-carer-api.herokuapp.com/api/admin/caregiver/add",
+        newCaregiver,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // console.log("🚀 ~ file: Add.jsx ~ line 51 ~ submit ~ response", response);
+      setAddCaregiverLoading(false);
+      if (response.status === 200) {
+        success("Created new user successfully");
+        getAllCaregivers();
+        closeHandler();
+      }
+    } catch (err) {
+      error("Psych");
+      console.log(err);
+      setAddCaregiverLoading(false);
+    }
   };
 
   const onchangeHandler = (e) => {
@@ -80,7 +88,7 @@ const Add = () => {
                 height={"45px"}
                 label={"Name"}
                 type={"text"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.name}
               />
@@ -90,7 +98,7 @@ const Add = () => {
                 height={"45px"}
                 label={"Email"}
                 type={"email"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.email}
               />
@@ -101,7 +109,7 @@ const Add = () => {
                 width={"450px"}
                 height={"45px"}
                 label={"Phone Number"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.phone}
               />
@@ -111,21 +119,31 @@ const Add = () => {
                 height={"45px"}
                 label={"Physical Address"}
                 type={"text"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.address}
               />
             </RowWidget>
             <RowWidget>
-              <Inputwidget
+              {/* <Inputwidget
                 name={"media"}
                 width={"450px"}
                 height={"45px"}
                 label={"Display photo"}
                 type={"file"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.media}
+              /> */}
+              <Inputwidget
+                name={"password"}
+                width={"450px"}
+                height={"45px"}
+                label={"Create Password"}
+                type={"password"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newCaregiver.password}
               />
               <Inputwidget
                 name={"licenseNo"}
@@ -133,7 +151,7 @@ const Add = () => {
                 height={"45px"}
                 label={"License Number"}
                 type={"text"}
-                required={"true"}
+                required
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.licenseNo}
               />
@@ -144,7 +162,7 @@ const Add = () => {
                 <select
                   name="gender"
                   id="gender"
-                  required={"true"}
+                  required
                   onChange={(e) => onchangeHandler(e)}
                   defaultValue={newCaregiver.licenseNo}
                 >
@@ -156,14 +174,20 @@ const Add = () => {
               </div>
             </RowWidget>
             <div className="bottom">
-              <ButtonWidget
-                width={"md"}
-                color={"grey"}
-                text={"Close"}
-                type={"submit"}
-                onclick={() => closeHandler()}
-              />
-              <ButtonWidget width={"md"} text={"Save"} />
+              {addCaregiverLoading ? (
+                <CircleSpinner />
+              ) : (
+                <>
+                  <ButtonWidget
+                    width={"md"}
+                    color={"grey"}
+                    text={"Close"}
+                    type={"submit"}
+                    onclick={() => closeHandler()}
+                  />
+                  <ButtonWidget width={"md"} text={"Save"} />
+                </>
+              )}
             </div>
           </form>
         </PopupWidget>

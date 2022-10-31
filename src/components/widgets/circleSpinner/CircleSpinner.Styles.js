@@ -7,7 +7,7 @@ export const CircleSpinner = styled.div`
   width: 30px;
   height: 30px;
   animation: spin 0.8s linear infinite;
-  margin: 20px auto;
+  /* margin: 20px auto; */
   z-index: 100;
 
   @keyframes spin {

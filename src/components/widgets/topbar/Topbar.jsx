@@ -16,7 +16,7 @@ import {
 } from "./Topbar.Styles";
 
 const Topbar = () => {
-  const { topbarTitle } = useContext(AppContext);
+  const { activeAdmin, topbarTitle } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -34,8 +34,10 @@ const Topbar = () => {
         <NameRoleImage>
           {/* <img src="#" alt="Img" /> */}
           <NameRole>
-            <Name>Nick Francis</Name>
-            <Role>Admin</Role>
+            <Name>
+              {activeAdmin?.firstName} {activeAdmin?.lastName}
+            </Name>
+            <Role>{activeAdmin?.role}</Role>
           </NameRole>
         </NameRoleImage>
         <Button onClick={logoutHandler}>Logout</Button>
