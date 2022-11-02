@@ -9,9 +9,7 @@ const InfoCardShortWidget = ({ img, r11, r12, r21, r22, r31, r32 }) => {
   return (
     <>
       <Wrapper>
-        <Left>
-          <img src={img} alt="img" />
-        </Left>
+        <Left>{img && <img src={img} alt="img" />}</Left>
         <Right>
           <Row>
             <h4>{r11}:</h4>
