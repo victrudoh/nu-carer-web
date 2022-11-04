@@ -7,16 +7,11 @@ import {
   Wrapper,
   SidebarTop,
   SidebarLogo,
-  SidebarCloseBtn,
   SidebarDown,
 } from "./Sidebar.Styles";
 
 //Logo
 let logo = "Logo";
-
-const toggleMenuHandler = () => {
-  // setMenuActive(!menuActive);
-};
 
 const Sidebar = () => {
   const { setTopbarTitle, setCaregiverHandler, setResidentHandler } =

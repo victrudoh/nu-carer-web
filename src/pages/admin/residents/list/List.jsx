@@ -31,10 +31,6 @@ const List = () => {
     setResidentListLoading,
     setAssignCaregiverLoading,
   } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: List.jsx ~ line 33 ~ List ~ allResidents",
-    allResidents
-  );
 
   const [filtered, setFiltered] = useState([]);
 
@@ -135,9 +131,21 @@ const List = () => {
       setAssignCaregiverLoading(true);
       e.persist();
       const caregiverId = await e.target.value.split(" ")[0];
-      console.log("assignCaregiverHandler ~ caregiverId: ", caregiverId);
       const residentId = await e.target.value.split(" ")[1];
-      console.log("assignCaregiverHandler ~ residentId: ", residentId);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/admin/resident/assign?residentId=${residentId}&caregiverId=${caregiverId}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: List.jsx ~ line 145 ~ assignCaregiverHandler ~ response",
+        response
+      );
+      success(response.data.message);
+      getAllResidents();
       setAssignCaregiverLoading(false);
     } catch (error) {
       setAssignCaregiverLoading(false);
@@ -181,31 +189,6 @@ const List = () => {
             </tr>
           </thead>
           <tbody>
-            {/* <tr>
-              <th scope="row">1</th>
-              <td>Maximillian RObin</td>
-              <td>Otto@gmail.com</td>
-              <td>07184556221</td>
-              <td>Male</td>
-              <td>
-                <select name="#" id="#" onChange={onchangeHandler}>
-                  <option value="">Select Care Giver</option>
-                  <option value="timesheet">Keanu Reaves</option>
-                  <option value="timesheet">Keanu Reaves</option>
-                  <option value="timesheet">Keanu Reaves</option>
-                  <option value="timesheet">Keanu Reaves</option>
-                </select>
-              </td>
-              <td>
-                <select name="#" id="#" onChange={onchangeHandler}>
-                  <option value="">...</option>
-                  <option value="careplan">View Care plan</option>
-                  <option value="summary">View Summary sheet</option>
-                  <option value="edit">Edit</option>
-                  <option value="delete">Delete</option>
-                </select>
-              </td>
-            </tr> */}
             {residentListLoading ? (
               <tr>
                 <td></td>
@@ -228,10 +211,13 @@ const List = () => {
                       <td>{item.age}</td>
                       <td>{item.gender}</td>
                       <td>{item.phone}</td>
-                      <td>
-                        {assignCaregiverLoading ? (
-                          <CircleSpinner />
-                        ) : (
+                      {/* <td> */}
+                      {assignCaregiverLoading ? (
+                        <td>
+                          <CircleSpinner className="mx-5" />
+                        </td>
+                      ) : (
+                        <td>
                           <select
                             name="#"
                             id="#"
@@ -241,18 +227,15 @@ const List = () => {
                             {allCaregivers.map((caregiver, i) => (
                               <option
                                 key={i}
-                                value={`${caregiver.id} ${item.id}`}
+                                value={`${caregiver._id} ${item._id}`}
                               >
                                 {caregiver.name}
                               </option>
                             ))}
-                            <option value={`${item._id}`}>Keanu Reaves</option>
-                            <option value="timesheet">Keanu Reaves</option>
-                            <option value="timesheet">Keanu Reaves</option>
-                            <option value="timesheet">Keanu Reaves</option>
                           </select>
-                        )}
-                      </td>
+                        </td>
+                      )}
+                      {/* </td> */}
                       {residentLoading ? (
                         <td>
                           <CircleSpinner />

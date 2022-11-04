@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/AppContext";
 
 // pages
@@ -9,8 +8,6 @@ import List from "./list/List";
 
 const Residents = () => {
   const { residentHandler } = useContext(AppContext);
-
-  const navigate = useNavigate();
 
   const Display = () => {
     if (residentHandler.action === "add") {
@@ -35,7 +32,6 @@ const Residents = () => {
   return (
     <>
       <Display />
-      {/* <List /> */}
     </>
   );
 };

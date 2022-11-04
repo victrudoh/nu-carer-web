@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { BrowserRouter } from "react-router-dom";
-import AppContext from "./context/AppContext";
+import React from "react";
 
 // Layouts
 import AppLayout from "./components/layouts/appLayout/AppLayout";
