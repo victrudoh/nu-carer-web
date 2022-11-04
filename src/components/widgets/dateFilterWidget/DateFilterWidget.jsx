@@ -37,7 +37,7 @@ const DateFilterWidget = ({ filterParams, setFilterParams }) => {
           label={"Start Date:"}
           required
           onChange={(e) => onchangeHandler(e)}
-          defaultValue={filterParams.from}
+          defaultValue={filterParams?.from || ""}
         />
         <h4>to</h4>
         <Inputwidget
@@ -48,7 +48,7 @@ const DateFilterWidget = ({ filterParams, setFilterParams }) => {
           label={"End Date:"}
           required
           onChange={(e) => onchangeHandler(e)}
-          defaultValue={filterParams.to}
+          defaultValue={filterParams?.to || ""}
         />
       </Wrapper>
     </>

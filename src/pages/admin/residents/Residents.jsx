@@ -27,10 +27,6 @@ const Residents = () => {
           <Edit />
         </>
       );
-    } else if (residentHandler.action === "summary") {
-      navigate("/admin/residents/summary");
-    } else if (residentHandler.action === "careplan") {
-      navigate("/admin/residents/careplan");
     } else {
       return <List />;
     }

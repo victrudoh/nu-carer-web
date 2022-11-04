@@ -57,7 +57,7 @@ const Add = () => {
       // console.log("🚀 ~ file: Add.jsx ~ line 51 ~ submit ~ response", response);
       setAddCaregiverLoading(false);
       if (response.status === 200) {
-        success("Created new user successfully");
+        success("Created new Care giver successfully");
         getAllCaregivers();
         closeHandler();
       }

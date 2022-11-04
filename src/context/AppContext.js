@@ -20,6 +20,11 @@ export const AppProvider = ({ children }) => {
   const [caregiverLoading, setCaregiverLoading] = useState(false);
   const [caregiverListLoading, setCaregiverListLoading] = useState(false);
   const [addCaregiverLoading, setAddCaregiverLoading] = useState(false);
+  // Admin (Residets)
+  const [residentLoading, setResidentLoading] = useState(false);
+  const [assignCaregiverLoading, setAssignCaregiverLoading] = useState(false);
+  const [residentListLoading, setResidentListLoading] = useState(false);
+  const [addResidentLoading, setAddResidentLoading] = useState(false);
 
   /************
    *********
@@ -49,9 +54,12 @@ export const AppProvider = ({ children }) => {
   // ***ADMIN RESIDENT***//
   // When an option for a resident is selected
   const [residentHandler, setResidentHandler] = useState({
-    resident: {},
+    id: "",
     action: "list",
   });
+
+  // all residents
+  const [allResidents, setAllResidents] = useState([]);
 
   /************
    *********
@@ -108,7 +116,37 @@ export const AppProvider = ({ children }) => {
       setAllCaregivers(response.data.data);
     } catch (error) {
       setCaregiverListLoading(false);
-      console.log("~ activeUser ~ error", error);
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 145 ~ getAllCaregivers ~ error",
+        error
+      );
+    }
+  };
+
+  // get all residents
+  const getAllResidents = async () => {
+    try {
+      setResidentListLoading(true);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/admin/resident/all`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 111 ~ getAllResidents ~ response",
+        response
+      );
+      setResidentListLoading(false);
+      setAllResidents(response.data.data);
+    } catch (error) {
+      setResidentListLoading(false);
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 115 ~ getAllResidents ~ error",
+        error
+      );
     }
   };
 
@@ -123,6 +161,9 @@ export const AppProvider = ({ children }) => {
 
     // ADMIN (Caregiver)
     getAllCaregivers();
+
+    // ADMIN (Resident)
+    getAllResidents();
   }, []);
 
   return (
@@ -149,6 +190,17 @@ export const AppProvider = ({ children }) => {
         setAddCaregiverLoading,
         setCaregiverListLoading,
 
+        // Resident loaders
+        residentLoading,
+        addResidentLoading,
+        residentListLoading,
+        assignCaregiverLoading,
+
+        setResidentLoading,
+        setAddResidentLoading,
+        setResidentListLoading,
+        setAssignCaregiverLoading,
+
         /* ***********
          *********
          ********
@@ -173,9 +225,13 @@ export const AppProvider = ({ children }) => {
         getAllCaregivers,
 
         // Admin Resident
+        allResidents,
         residentHandler,
 
+        setAllResidents,
         setResidentHandler,
+
+        getAllResidents,
 
         /* ***********
          *********

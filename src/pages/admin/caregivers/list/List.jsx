@@ -18,11 +18,14 @@ const List = () => {
   const {
     allCaregivers,
     caregiverHandler,
-    caregiverLoading,
+
     getAllCaregivers,
-    setCaregiverLoading,
     setCaregiverHandler,
+
+    caregiverLoading,
     caregiverListLoading,
+
+    setCaregiverLoading,
     setCaregiverListLoading,
   } = useContext(AppContext);
 
@@ -74,7 +77,6 @@ const List = () => {
       setCaregiverLoading(true);
       // console.log(caregiverHandler);
       e.persist();
-      setCaregiverLoading(false);
       // use split to seperate values and ID i passed in the form input value
       if (e.target.value.split(" ")[0] === "summary") {
         await setCaregiverHandler(() => ({
@@ -97,6 +99,7 @@ const List = () => {
           action: e.target.value.split(" ")[0],
         }));
       }
+      setCaregiverLoading(false);
     } catch (error) {
       setCaregiverLoading(false);
       console.log("CaregiverList.jsx onchangeHandler ~ error", error);
@@ -116,7 +119,7 @@ const List = () => {
     }
   };
 
-  // populate filtered with users on page load
+  // populate filtered with caregivers on page load
   useEffect(() => {
     setFiltered(allCaregivers);
   }, []);
