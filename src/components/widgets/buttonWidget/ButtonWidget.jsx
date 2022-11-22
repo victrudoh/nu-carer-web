@@ -1,9 +1,15 @@
 import React from "react";
 import { Button } from "./ButtonWidget.Styles";
 
-const ButtonWidget = ({ text, width, color, type, onclick }) => {
+const ButtonWidget = ({ text, width, height, color, type, onclick }) => {
   return (
-    <Button width={width} color={color} type={type} onClick={onclick}>
+    <Button
+      width={width}
+      height={height}
+      color={color}
+      type={type}
+      onClick={onclick}
+    >
       {text}
     </Button>
   );

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.4rem;
 `;
 
 export const Left = styled.div`
@@ -26,10 +26,18 @@ export const Left = styled.div`
   }
 `;
 
+export const Middle = styled.div`
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Right = styled.div`
   /* background-color: orange; */
   display: flex;
   flex-direction: column;
+  border-left: 2px solid black;
+  padding-left: 1rem;
 `;
 
 export const Row = styled.div`

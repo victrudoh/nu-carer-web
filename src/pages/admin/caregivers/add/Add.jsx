@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import AppContext from "../../../../context/AppContext";
 import axios from "axios";
 import { success, error } from "../../../../helpers/Alert";
+import CloudinaryUpload from "../../../../middlewares/CloudinaryUpload";
 
 // styles
 import { Wrapper } from "./Add.Styles";
@@ -32,6 +33,7 @@ const Add = () => {
     licenseNo: "",
     gender: "",
   });
+  console.log(" newCaregiver", newCaregiver);
 
   const closeHandler = () => {
     setCaregiverHandler({
@@ -41,8 +43,8 @@ const Add = () => {
   };
 
   const submit = async (e) => {
-    console.log("newCaregiver: ", newCaregiver);
     e.preventDefault();
+    console.log("newCaregiver: ", newCaregiver);
     try {
       setAddCaregiverLoading(true);
       const response = await axios.post(
@@ -74,6 +76,25 @@ const Add = () => {
       ...item,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const onFileChangeHandler = async (e) => {
+    try {
+      e.persist();
+      // setAddCaregiverLoading(true);
+      const media = await CloudinaryUpload(e);
+      // console.log("media", media);
+      setNewCaregiver((item) => ({
+        ...item,
+        media: media,
+      }));
+      // setAddCaregiverLoading(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: Add.jsx ~ line 91 ~ onFileChangeHandler ~ error",
+        error
+      );
+    }
   };
 
   return (
@@ -125,16 +146,16 @@ const Add = () => {
               />
             </RowWidget>
             <RowWidget>
-              {/* <Inputwidget
+              <Inputwidget
                 name={"media"}
                 width={"450px"}
                 height={"45px"}
                 label={"Display photo"}
                 type={"file"}
                 required
-                onChange={(e) => onchangeHandler(e)}
+                onChange={(e) => onFileChangeHandler(e)}
                 defaultValue={newCaregiver.media}
-              /> */}
+              />
               <Inputwidget
                 name={"password"}
                 width={"450px"}
@@ -145,6 +166,8 @@ const Add = () => {
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.password}
               />
+            </RowWidget>
+            <RowWidget>
               <Inputwidget
                 name={"licenseNo"}
                 width={"450px"}
@@ -155,8 +178,7 @@ const Add = () => {
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newCaregiver.licenseNo}
               />
-            </RowWidget>
-            <RowWidget>
+
               <div className="gender">
                 <label>Gender</label>
                 <select
@@ -179,13 +201,18 @@ const Add = () => {
               ) : (
                 <>
                   <ButtonWidget
-                    width={"md"}
-                    color={"grey"}
+                    width={"170px"}
+                    height={"45px"}
                     text={"Close"}
-                    type={"submit"}
+                    color={"grey"}
                     onclick={() => closeHandler()}
                   />
-                  <ButtonWidget width={"md"} text={"Save"} />
+                  <ButtonWidget
+                    width={"170px"}
+                    height={"45px"}
+                    text={"Add"}
+                    type={"submit"}
+                  />
                 </>
               )}
             </div>

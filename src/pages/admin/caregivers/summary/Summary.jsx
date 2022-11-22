@@ -109,7 +109,7 @@ const Summary = () => {
         ) : (
           <>
             <InfoCardShortWidget
-              // img={"#"}
+              img={caregiver.media}
               r11={"Name"}
               r12={caregiver.name}
               r21={"Sessions"}

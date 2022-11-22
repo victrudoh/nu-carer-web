@@ -34,27 +34,27 @@ export const Right = styled.div`
   text-align: center;
   gap: 1rem;
 
-  /* img {
+  img {
     width: 65px;
     height: 65px;
     border: 3px solid #484848;
     border-radius: 50%;
-  } */
+  }
 `;
 
 export const NameRoleImage = styled.div`
   /* background-color: orange; */
   /* padding: 0 1rem; */
-  /* width: 150px; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-around; */
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   text-align: center;
-  /* gap: 0.3rem; */
+  gap: 0.3rem;
 `;
 
 export const NameRole = styled.div`
-  /* width: 50%; */
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;

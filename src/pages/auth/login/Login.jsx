@@ -28,7 +28,7 @@ const Login = () => {
   const { authLoading, setAuthLoading } = useContext(AppContext);
 
   const [loginDetails, setLoginDetails] = useState({
-    userName: "",
+    email: "",
     password: "",
   });
 
@@ -92,13 +92,13 @@ const Login = () => {
             <Content>
               <Title>Login</Title>
               <Inputwidget
-                type={"text"}
+                type={"email"}
                 placeholder={"e.g SarahBanks07"}
-                label={"Username"}
-                name={"userName"}
+                label={"email"}
+                name={"email"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={loginDetails.userName}
+                defaultValue={loginDetails.email}
               />
               <Inputwidget
                 type={"password"}

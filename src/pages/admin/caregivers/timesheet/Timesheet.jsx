@@ -19,6 +19,10 @@ const Timesheet = () => {
   } = useContext(AppContext);
 
   const [caregiver, setCaregiver] = useState({});
+  console.log(
+    "🚀 ~ file: Timesheet.jsx ~ line 22 ~ Timesheet ~ caregiver",
+    caregiver
+  );
 
   const [timesheet, setTimesheet] = useState({});
 
@@ -92,7 +96,7 @@ const Timesheet = () => {
           <CircleSpinner />
         ) : (
           <InfoCardShortWidget
-            // img={"#"}
+            img={caregiver.media}
             r11={"Name"}
             r12={caregiver.name}
             r21={"License Number"}

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import CloudinaryUpload from "../../../middlewares/CloudinaryUpload";
+import CloudinaryUpload from "../../../middlewares/CloudinaryUpload";
 import { success, error } from "../../../helpers/Alert";
 
 // Styles
@@ -34,43 +34,13 @@ const Register = () => {
     userName: "",
     email: "",
     password: "",
-    // media: "",
+    media: "",
   });
 
   const navigate = useNavigate();
 
-  // const formData = new FormData();
-
-  // const uploadImage = async (e) => {
-  //   // setAuthLoading(true);
-  //   // const media = await CloudinaryUpload(e);
-  //   // formData.append("media", media);
-  //   // console.log(
-  //   //   "🚀 ~ file: Register.jsx ~ line 43 ~ uploadImage ~ media",
-  //   //   media
-  //   // );
-  //   // setNewAdmin({
-  //   //   firstName: newAdmin.firstName,
-  //   //   lastName: newAdmin.lastName,
-  //   //   userName: newAdmin.userName,
-  //   //   email: newAdmin.email,
-  //   //   password: newAdmin.password,
-  //   //   media: media,
-  //   // });
-  //   setNewAdmin((newAdmin) => {
-  //     return {
-  //       ...newAdmin,
-  //       media: media,
-  //     };
-  //   });
-  //   console.log("admin: ", newAdmin);
-  //   // submit();
-  // };
-
   const onchangeHandler = (e) => {
     e.persist();
-    // formData.append(e.target.name, e.target.value);
-    // console.log("formData: ", formData);
 
     setNewAdmin((item) => ({
       ...item,
@@ -78,16 +48,26 @@ const Register = () => {
     }));
   };
 
-  // const onFileChangeHandler = (e) => {
-  //   e.persist();
-  //   formData.append("media", e.target.files[0]);
-  // };
+  const onFileChangeHandler = async (e) => {
+    try {
+      e.persist();
+      setAuthLoading(true);
+      const media = await CloudinaryUpload(e);
+      setNewAdmin((item) => ({
+        ...item,
+        media: media,
+      }));
+      setAuthLoading(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: Register.jsx ~ line 87 ~ onFileChangeHandler ~ error",
+        error
+      );
+    }
+  };
 
   const submit = async (e) => {
     e.preventDefault();
-    // const media = await CloudinaryUpload(e);
-    // formData.append("admin", newAdmin);
-    // console.log("formData: ", formData);
     // console.log("newAdmin: ", newAdmin);
     try {
       setAuthLoading(true);
@@ -152,15 +132,15 @@ const Register = () => {
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newAdmin.userName}
               />
-              {/* <Inputwidget
+              <Inputwidget
                 type={"file"}
                 label={"Display Photo"}
                 name={"media"}
                 required
+                // onChange={onFileChangeHandler}
                 onChange={(e) => onFileChangeHandler(e)}
-                onChange={(e) => uploadImage(e)}
                 defaultValue={newAdmin.media}
-              /> */}
+              />
               <Inputwidget
                 type={"email"}
                 placeholder={"e.g SarahBanks07@email.com"}

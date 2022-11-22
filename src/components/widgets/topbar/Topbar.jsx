@@ -32,7 +32,7 @@ const Topbar = () => {
       <Left>{topbarTitle}</Left>
       <Right>
         <NameRoleImage>
-          {/* <img src="#" alt="Img" /> */}
+          <img src={activeAdmin?.media} alt="Img" />
           <NameRole>
             <Name>
               {activeAdmin?.firstName} {activeAdmin?.lastName}

@@ -59,10 +59,10 @@ const List = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: List.jsx ~ line 61 ~ Deletehandler ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: List.jsx ~ line 61 ~ Deletehandler ~ response",
+      //   response
+      // );
       success(response.data.message);
       getAllResidents();
       setResidentListLoading(false);
@@ -86,21 +86,25 @@ const List = () => {
           id: e.target.value.split(" ")[1],
           action: e.target.value.split(" ")[0],
         }));
+        setResidentLoading(false);
         navigate("/admin/residents/summary");
       } else if (e.target.value.split(" ")[0] === "careplan") {
         await setResidentHandler(() => ({
           id: e.target.value.split(" ")[1],
           action: e.target.value.split(" ")[0],
         }));
+        setResidentLoading(false);
         navigate("/admin/residents/careplan");
       } else if (e.target.value.split(" ")[0] === "delete") {
         Deletehandler(e.target.value.split(" ")[1]);
+        setResidentLoading(false);
       } else {
         // else would only be Edit and it would be handled in residents.jsx so i'll send it there
         await setResidentHandler(() => ({
           id: e.target.value.split(" ")[1],
           action: e.target.value.split(" ")[0],
         }));
+        setResidentLoading(false);
       }
       setResidentLoading(false);
     } catch (error) {
@@ -140,10 +144,10 @@ const List = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: List.jsx ~ line 145 ~ assignCaregiverHandler ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: List.jsx ~ line 145 ~ assignCaregiverHandler ~ response",
+      //   response
+      // );
       success(response.data.message);
       getAllResidents();
       setAssignCaregiverLoading(false);
@@ -218,21 +222,25 @@ const List = () => {
                         </td>
                       ) : (
                         <td>
-                          <select
-                            name="#"
-                            id="#"
-                            onChange={assignCaregiverHandler}
-                          >
-                            <option>Select Care Giver</option>
-                            {allCaregivers.map((caregiver, i) => (
-                              <option
-                                key={i}
-                                value={`${caregiver._id} ${item._id}`}
-                              >
-                                {caregiver.name}
-                              </option>
-                            ))}
-                          </select>
+                          {item.caregiverName ? (
+                            item.caregiverName
+                          ) : (
+                            <select
+                              name="#"
+                              id="#"
+                              onChange={assignCaregiverHandler}
+                            >
+                              <option>Select Care Giver</option>
+                              {allCaregivers.map((caregiver, i) => (
+                                <option
+                                  key={i}
+                                  value={`${caregiver._id} ${item._id}`}
+                                >
+                                  {caregiver.name}
+                                </option>
+                              ))}
+                            </select>
+                          )}
                         </td>
                       )}
                       {/* </td> */}
@@ -247,9 +255,9 @@ const List = () => {
                             <option value={`careplan ${item._id}`}>
                               View Care plan
                             </option>
-                            <option value={`summary ${item._id}`}>
+                            {/* <option value={`summary ${item._id}`}>
                               View Summary sheet
-                            </option>
+                            </option> */}
                             <option value={`edit ${item._id}`}>Edit</option>
                             <option value={`delete ${item._id}`}>Delete</option>
                           </select>

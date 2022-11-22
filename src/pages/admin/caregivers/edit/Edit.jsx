@@ -39,41 +39,6 @@ const Edit = () => {
     });
   };
 
-  // fetch Caregiver by ID
-  const getCaregiver = async () => {
-    try {
-      setAddCaregiverLoading(true);
-      const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
-      console.log(
-        "🚀 ~ file: Edit.jsx ~ line 55 ~ getCaregiver ~ response",
-        response
-      );
-      setEditCaregiver({
-        name: response.data.data.caregiver.name,
-        email: response.data.data.caregiver.email,
-        password: "",
-        phone: response.data.data.caregiver.phone,
-        address: response.data.data.caregiver.address,
-        licenseNo: response.data.data.caregiver.licenseNo,
-        gender: response.data.data.caregiver.gender,
-      });
-      setAddCaregiverLoading(false);
-    } catch (error) {
-      setAddCaregiverLoading(false);
-      console.log(
-        "🚀 ~ file: Edit.jsx ~ line 59 ~ getCaregiver ~ error",
-        error
-      );
-    }
-  };
-
   const submit = async (e) => {
     console.log("editCaregiver: ", editCaregiver);
     e.preventDefault();
@@ -96,7 +61,7 @@ const Edit = () => {
         closeHandler();
       }
     } catch (err) {
-      error("Psych");
+      error(err.response.data.message);
       console.log(err);
       setAddCaregiverLoading(false);
     }
@@ -110,9 +75,17 @@ const Edit = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   getCaregiver();
-  // }, []);
+  useEffect(() => {
+    setEditCaregiver({
+      name: caregiverHandler.caregiver?.name,
+      email: caregiverHandler.caregiver?.email,
+      password: caregiverHandler.caregiver?.password,
+      phone: caregiverHandler.caregiver?.phone,
+      address: caregiverHandler.caregiver?.address,
+      licenseNo: caregiverHandler.caregiver?.licenseNo,
+      gender: caregiverHandler.caregiver?.gender,
+    });
+  }, [caregiverHandler.caregiver]);
 
   return (
     <>
@@ -128,7 +101,7 @@ const Edit = () => {
                 type={"text"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.name}
+                defaultValue={caregiverHandler.caregiver?.name}
               />
               <Inputwidget
                 name={"email"}
@@ -138,7 +111,7 @@ const Edit = () => {
                 type={"email"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.email}
+                defaultValue={caregiverHandler.caregiver?.email}
               />
             </RowWidget>
             <RowWidget>
@@ -149,7 +122,7 @@ const Edit = () => {
                 label={"Phone Number"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.phone}
+                defaultValue={caregiverHandler.caregiver?.phone}
               />
               <Inputwidget
                 name={"address"}
@@ -159,7 +132,7 @@ const Edit = () => {
                 type={"text"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.address}
+                defaultValue={caregiverHandler.caregiver?.address}
               />
             </RowWidget>
             <RowWidget>
@@ -171,17 +144,17 @@ const Edit = () => {
                 type={"file"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.media}
+                defaultValue={caregiverHandler.caregiver?.media}
               /> */}
               <Inputwidget
                 name={"password"}
                 width={"450px"}
                 height={"45px"}
-                label={"Create Password"}
+                label={"Edit Password"}
                 type={"password"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.password}
+                defaultValue={caregiverHandler.caregiver?.password}
               />
               <Inputwidget
                 name={"licenseNo"}
@@ -191,7 +164,7 @@ const Edit = () => {
                 type={"text"}
                 required
                 onChange={(e) => onchangeHandler(e)}
-                defaultValue={editCaregiver.licenseNo}
+                defaultValue={caregiverHandler.caregiver?.licenseNo}
               />
             </RowWidget>
             <RowWidget>
@@ -202,7 +175,7 @@ const Edit = () => {
                   id="gender"
                   required
                   onChange={(e) => onchangeHandler(e)}
-                  defaultValue={editCaregiver.licenseNo}
+                  defaultValue={caregiverHandler.caregiver?.licenseNo}
                 >
                   <option>Select Gender</option>
                   <option value="male">Male</option>

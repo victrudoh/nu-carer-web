@@ -39,7 +39,7 @@ const Sidebar = () => {
         <Wrapper id="wrapper">
           <SidebarTop>
             <SidebarLogo>
-              <img src={logo} alt="logo" />
+              {/* <img src={logo} alt="logo" /> */}
               <div className="logoName">We Care</div>
             </SidebarLogo>
           </SidebarTop>

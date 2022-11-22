@@ -20,11 +20,12 @@ export const AppProvider = ({ children }) => {
   const [caregiverLoading, setCaregiverLoading] = useState(false);
   const [caregiverListLoading, setCaregiverListLoading] = useState(false);
   const [addCaregiverLoading, setAddCaregiverLoading] = useState(false);
-  // Admin (Residets)
+  // Admin (Residents)
   const [residentLoading, setResidentLoading] = useState(false);
   const [assignCaregiverLoading, setAssignCaregiverLoading] = useState(false);
   const [residentListLoading, setResidentListLoading] = useState(false);
   const [addResidentLoading, setAddResidentLoading] = useState(false);
+  const [careplanLoading, setCareplanLoading] = useState(false);
 
   /************
    *********
@@ -45,6 +46,7 @@ export const AppProvider = ({ children }) => {
   // When an option for a caregiver is selected
   const [caregiverHandler, setCaregiverHandler] = useState({
     id: "",
+    caregiver: {},
     action: "list",
   });
 
@@ -56,10 +58,25 @@ export const AppProvider = ({ children }) => {
   const [residentHandler, setResidentHandler] = useState({
     id: "",
     action: "list",
+    careplan: {
+      action: "",
+      activity: {},
+    },
   });
 
   // all residents
   const [allResidents, setAllResidents] = useState([]);
+
+  // careplan
+  const [allActivities, setAllActivities] = useState([]);
+  const [careplan, setCareplan] = useState([]);
+  const [careplanIds, setCareplanIds] = useState([]);
+  const [activityIds, setActivityIds] = useState([]);
+  console.log(
+    "🚀 ~ file: AppContext.js ~ line 71 ~ AppProvider ~ activityIds",
+    activityIds
+  );
+  const [filteredCareplan, setFilteredCareplan] = useState([]);
 
   /************
    *********
@@ -123,6 +140,46 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // fetch Caregiver by ID
+  const getCaregiver = async () => {
+    try {
+      setAddCaregiverLoading(true);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 138 ~ getCaregiver ~ response",
+        response
+      );
+      setCaregiverHandler({
+        ...caregiverHandler,
+        caregiver: response.data.data.caregiver,
+      });
+      // setEditCaregiver({
+      //   name: response.data.data.caregiver.name,
+      //   email: response.data.data.caregiver.email,
+      //   password: "",
+      //   phone: response.data.data.caregiver.phone,
+      //   address: response.data.data.caregiver.address,
+      //   licenseNo: response.data.data.caregiver.licenseNo,
+      //   gender: response.data.data.caregiver.gender,
+      // });
+      setAddCaregiverLoading(false);
+    } catch (error) {
+      setAddCaregiverLoading(false);
+      console.log(
+        "🚀 ~ file: Edit.jsx ~ line 59 ~ getCaregiver ~ error",
+        error
+      );
+    }
+  };
+
+  // ADMIN RESIDENTS
   // get all residents
   const getAllResidents = async () => {
     try {
@@ -135,16 +192,107 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 111 ~ getAllResidents ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 111 ~ getAllResidents ~ response",
+      //   response
+      // );
       setResidentListLoading(false);
       setAllResidents(response.data.data);
     } catch (error) {
       setResidentListLoading(false);
       console.log(
         "🚀 ~ file: AppContext.js ~ line 115 ~ getAllResidents ~ error",
+        error
+      );
+    }
+  };
+
+  // fetch all activities
+  const getAllActivities = async () => {
+    try {
+      const response = axios.get(
+        // `http://localhost:4000/api/admin/activity/all`,
+        `https://nu-carer-api.herokuapp.com/api/admin/activity/all`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 30 ~ allActivities ~ response",
+        response
+      );
+      setAllActivities((await response).data.data.activities);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 29 ~ allActivities ~ error",
+        error
+      );
+    }
+  };
+
+  // get careplan with residentID
+  const getCareplan = async () => {
+    try {
+      setCareplanLoading(true);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/admin/resident/careplan?residentId=${residentHandler.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // const response = await axios.get(
+      //   `http://localhost:4000/api/admin/resident/careplan?residentId=637558a266b3adb51f3c4a43`,
+      //   {
+      //     headers: {
+      //       "content-type": "application/json",
+      //     },
+      //   }
+      // );
+      // console.log("getCareplan ~ response", response);
+      setCareplan(response.data.data);
+      setCareplanLoading(false);
+    } catch (error) {
+      setCareplanLoading(false);
+      console.log(
+        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 32 ~ getCareplan ~ error",
+        error
+      );
+    }
+  };
+
+  // filter careplas and activities
+  const getFilteredCareplan = async () => {
+    try {
+      // allActivities.map(async (activity) => {
+      // activityIds.filter((item) => {
+      //   if (item.includes(activity._id)) {
+      //     return console.log("Exists");
+      //   } else {
+      //     return setActivityIds((item) => [...item, activity._id]);
+      //   }
+      // return (
+      //   !item.includes(activity._id) &&
+      //   setActivityIds((item) => [...item, activity._id])
+      // );
+      //   });
+      //   console.log("activityIds", activityIds);
+      // });
+
+      careplan.map(async (careplan) => {
+        setCareplanIds((item) => [...item, careplan.activityId]);
+      });
+
+      const filter = careplanIds.filter((activity) => {
+        return activityIds.includes(activity);
+      });
+      console.log("filter", filter);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 73 ~ getFilteredCareplan ~ error",
         error
       );
     }
@@ -164,7 +312,20 @@ export const AppProvider = ({ children }) => {
 
     // ADMIN (Resident)
     getAllResidents();
+    getAllActivities();
   }, []);
+
+  useEffect(() => {
+    getCaregiver();
+  }, [caregiverHandler.action === "edit"]);
+
+  useEffect(() => {
+    getCareplan();
+  }, [residentHandler.action === "careplan"]);
+
+  useEffect(() => {
+    getFilteredCareplan();
+  }, [careplan]);
 
   return (
     <AppContext.Provider
@@ -191,11 +352,13 @@ export const AppProvider = ({ children }) => {
         setCaregiverListLoading,
 
         // Resident loaders
+        careplanLoading,
         residentLoading,
         addResidentLoading,
         residentListLoading,
         assignCaregiverLoading,
 
+        setCareplanLoading,
         setResidentLoading,
         setAddResidentLoading,
         setResidentListLoading,
@@ -232,6 +395,13 @@ export const AppProvider = ({ children }) => {
         setResidentHandler,
 
         getAllResidents,
+
+        // careplan
+        careplan,
+        allActivities,
+
+        setCareplan,
+        setAllActivities,
 
         /* ***********
          *********

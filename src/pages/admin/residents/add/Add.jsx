@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import AppContext from "../../../../context/AppContext";
 import axios from "axios";
 import { success, error } from "../../../../helpers/Alert";
+import CloudinaryUpload from "../../../../middlewares/CloudinaryUpload";
 
 // Styles
 import { Wrapper } from "./Add.Styles";
@@ -27,8 +28,9 @@ const Add = () => {
     age: "",
     phone: "",
     address: "",
-    licenseNo: "",
+    zipCode: "",
     gender: "",
+    media: "",
   });
 
   const closeHandler = () => {
@@ -74,6 +76,24 @@ const Add = () => {
     }));
   };
 
+  const onFileChangeHandler = async (e) => {
+    try {
+      e.persist();
+      // setAddResidentLoading(true);
+      const media = await CloudinaryUpload(e);
+      setNewResident((item) => ({
+        ...item,
+        media: media,
+      }));
+      // setAddResidentLoading(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: Register.jsx ~ line 87 ~ onFileChangeHandler ~ error",
+        error
+      );
+    }
+  };
+
   return (
     <>
       <Wrapper>
@@ -103,6 +123,15 @@ const Add = () => {
             </RowWidget>
             <RowWidget>
               <Inputwidget
+                name={"media"}
+                width={"450px"}
+                height={"45px"}
+                label={"Display photo"}
+                type={"file"}
+                onChange={(e) => onFileChangeHandler(e)}
+                defaultValue={newResident.media}
+              />
+              <Inputwidget
                 name={"phone"}
                 width={"450px"}
                 height={"45px"}
@@ -112,11 +141,23 @@ const Add = () => {
                 onChange={(e) => onchangeHandler(e)}
                 defaultValue={newResident.phone}
               />
+            </RowWidget>
+            <RowWidget>
+              <Inputwidget
+                name={"zipCode"}
+                width={"450px"}
+                height={"45px"}
+                label={"Zip Code"}
+                type={"text"}
+                required
+                onChange={(e) => onchangeHandler(e)}
+                defaultValue={newResident.zipCode}
+              />
               <Inputwidget
                 name={"address"}
                 width={"450px"}
                 height={"45px"}
-                label={"Physical Address"}
+                label={"Contact Address"}
                 type={"text"}
                 required
                 onChange={(e) => onchangeHandler(e)}
@@ -124,16 +165,6 @@ const Add = () => {
               />
             </RowWidget>
             <RowWidget>
-              <Inputwidget
-                name={"licenseNo"}
-                width={"450px"}
-                height={"45px"}
-                label={"License Number"}
-                type={"text"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.licenseNo}
-              />
               <div className="gender">
                 <label>Gender</label>
                 <select
@@ -150,28 +181,20 @@ const Add = () => {
                 </select>
               </div>
             </RowWidget>
-            {/* <RowWidget>
-            <Inputwidget
-              name={"media"}
-              width={"450px"}
-              height={"45px"}
-              label={"Display photo"}
-              type={"file"}
-            />
-          </RowWidget> */}
             <div className="bottom">
               {addResidentLoading ? (
                 <CircleSpinner />
               ) : (
                 <>
                   <ButtonWidget
-                    width={"md"}
+                    width={"170px"}
+                    height={"45px"}
                     color={"grey"}
                     text={"Close"}
                     type={"submit"}
                     onclick={() => closeHandler()}
                   />
-                  <ButtonWidget width={"md"} text={"Save"} />
+                  <ButtonWidget width={"170px"} height={"45px"} text={"Save"} />
                 </>
               )}
             </div>
