@@ -100,11 +100,12 @@ const List = () => {
         setResidentLoading(false);
       } else {
         // else would only be Edit and it would be handled in residents.jsx so i'll send it there
-        await setResidentHandler(() => ({
+        await setResidentHandler((item) => ({
+          ...item,
           id: e.target.value.split(" ")[1],
           action: e.target.value.split(" ")[0],
         }));
-        setResidentLoading(false);
+        // setResidentLoading(false);
       }
       setResidentLoading(false);
     } catch (error) {

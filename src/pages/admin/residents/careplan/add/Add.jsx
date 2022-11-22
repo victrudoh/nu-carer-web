@@ -34,7 +34,10 @@ const Add = () => {
       ...residentHandler,
       careplan: {
         action: null,
-        activity: {},
+        items: {
+          careplan: {},
+          activity: {},
+        },
       },
     });
   };
@@ -58,16 +61,20 @@ const Add = () => {
       if (response.status === 200) {
         success("Created new activity successfully");
         getCareplan();
+        // close handler
         setResidentHandler({
           ...residentHandler,
           careplan: {
             action: null,
-            activity: {},
+            items: {
+              careplan: {},
+              activity: {},
+            },
           },
         });
       }
     } catch (err) {
-      if (err.response.status === 422) {
+      if (err?.response?.status === 422) {
         error(err.response.data.message);
       } else {
         error("Couldn't create activity");

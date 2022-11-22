@@ -26,6 +26,7 @@ export const AppProvider = ({ children }) => {
   const [residentListLoading, setResidentListLoading] = useState(false);
   const [addResidentLoading, setAddResidentLoading] = useState(false);
   const [careplanLoading, setCareplanLoading] = useState(false);
+  const [careplanListLoading, setCareplanListLoading] = useState(false);
 
   /************
    *********
@@ -58,9 +59,13 @@ export const AppProvider = ({ children }) => {
   const [residentHandler, setResidentHandler] = useState({
     id: "",
     action: "list",
+    resident: {},
     careplan: {
       action: "",
-      activity: {},
+      items: {
+        careplan: {},
+        activity: {},
+      },
     },
   });
 
@@ -70,13 +75,6 @@ export const AppProvider = ({ children }) => {
   // careplan
   const [allActivities, setAllActivities] = useState([]);
   const [careplan, setCareplan] = useState([]);
-  const [careplanIds, setCareplanIds] = useState([]);
-  const [activityIds, setActivityIds] = useState([]);
-  console.log(
-    "🚀 ~ file: AppContext.js ~ line 71 ~ AppProvider ~ activityIds",
-    activityIds
-  );
-  const [filteredCareplan, setFilteredCareplan] = useState([]);
 
   /************
    *********
@@ -196,14 +194,44 @@ export const AppProvider = ({ children }) => {
       //   "🚀 ~ file: AppContext.js ~ line 111 ~ getAllResidents ~ response",
       //   response
       // );
-      setResidentListLoading(false);
       setAllResidents(response.data.data);
+      setResidentListLoading(false);
     } catch (error) {
       setResidentListLoading(false);
       console.log(
         "🚀 ~ file: AppContext.js ~ line 115 ~ getAllResidents ~ error",
         error
       );
+    }
+  };
+
+  // fetch Residet by ID
+  const getResident = async () => {
+    try {
+      setAddResidentLoading(true);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/admin/resident/one?id=${residentHandler.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 227 ~ getResident ~ response",
+        response
+      );
+      setResidentHandler({
+        ...residentHandler,
+        resident: response.data.data.resident,
+      });
+      setAddResidentLoading(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 246 ~ getResident ~ error",
+        error
+      );
+      setAddResidentLoading(false);
     }
   };
 
@@ -236,6 +264,7 @@ export const AppProvider = ({ children }) => {
   const getCareplan = async () => {
     try {
       setCareplanLoading(true);
+      setCareplanListLoading(true);
       const response = await axios.get(
         `https://nu-carer-api.herokuapp.com/api/admin/resident/careplan?residentId=${residentHandler.id}`,
         {
@@ -255,44 +284,12 @@ export const AppProvider = ({ children }) => {
       // console.log("getCareplan ~ response", response);
       setCareplan(response.data.data);
       setCareplanLoading(false);
+      setCareplanListLoading(false);
     } catch (error) {
       setCareplanLoading(false);
+      setCareplanListLoading(false);
       console.log(
         "🚀 ~ file: CareplanActivityWidget.jsx ~ line 32 ~ getCareplan ~ error",
-        error
-      );
-    }
-  };
-
-  // filter careplas and activities
-  const getFilteredCareplan = async () => {
-    try {
-      // allActivities.map(async (activity) => {
-      // activityIds.filter((item) => {
-      //   if (item.includes(activity._id)) {
-      //     return console.log("Exists");
-      //   } else {
-      //     return setActivityIds((item) => [...item, activity._id]);
-      //   }
-      // return (
-      //   !item.includes(activity._id) &&
-      //   setActivityIds((item) => [...item, activity._id])
-      // );
-      //   });
-      //   console.log("activityIds", activityIds);
-      // });
-
-      careplan.map(async (careplan) => {
-        setCareplanIds((item) => [...item, careplan.activityId]);
-      });
-
-      const filter = careplanIds.filter((activity) => {
-        return activityIds.includes(activity);
-      });
-      console.log("filter", filter);
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 73 ~ getFilteredCareplan ~ error",
         error
       );
     }
@@ -320,12 +317,12 @@ export const AppProvider = ({ children }) => {
   }, [caregiverHandler.action === "edit"]);
 
   useEffect(() => {
-    getCareplan();
-  }, [residentHandler.action === "careplan"]);
+    getResident();
+  }, [residentHandler.action === "edit"]);
 
   useEffect(() => {
-    getFilteredCareplan();
-  }, [careplan]);
+    getCareplan();
+  }, [residentHandler.action === "careplan"]);
 
   return (
     <AppContext.Provider
@@ -356,12 +353,14 @@ export const AppProvider = ({ children }) => {
         residentLoading,
         addResidentLoading,
         residentListLoading,
+        careplanListLoading,
         assignCaregiverLoading,
 
         setCareplanLoading,
         setResidentLoading,
         setAddResidentLoading,
         setResidentListLoading,
+        setCareplanListLoading,
         setAssignCaregiverLoading,
 
         /* ***********
@@ -402,6 +401,8 @@ export const AppProvider = ({ children }) => {
 
         setCareplan,
         setAllActivities,
+
+        getCareplan,
 
         /* ***********
          *********

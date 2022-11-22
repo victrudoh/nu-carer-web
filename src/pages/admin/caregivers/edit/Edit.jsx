@@ -190,13 +190,18 @@ const Edit = () => {
               ) : (
                 <>
                   <ButtonWidget
-                    width={"md"}
+                    width={"170px"}
+                    height={"45px"}
                     color={"grey"}
                     text={"Close"}
                     type={"submit"}
                     onclick={() => closeHandler()}
                   />
-                  <ButtonWidget width={"md"} text={"Update"} />
+                  <ButtonWidget
+                    width={"170px"}
+                    height={"45px"}
+                    text={"Update"}
+                  />
                 </>
               )}
             </div>
