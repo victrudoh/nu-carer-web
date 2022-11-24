@@ -5,6 +5,7 @@ import {
   Left,
   Middle,
   Right,
+  End,
   Row,
   Wrapper,
 } from "./InfoCardShortWidget.Styles";
@@ -25,6 +26,7 @@ const InfoCardShortWidget = ({
   r52,
   r61,
   r62,
+  icon,
 }) => {
   return (
     <>
@@ -59,6 +61,11 @@ const InfoCardShortWidget = ({
               <h5>{r62}</h5>
             </Row>
           </Right>
+        )}
+        {icon && (
+          <End>
+            <i class="bx bx-log-in-circle"></i>
+          </End>
         )}
       </Wrapper>
     </>

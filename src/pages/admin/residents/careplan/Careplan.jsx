@@ -15,6 +15,7 @@ import Edit from "./edit/Edit";
 
 const Careplan = () => {
   const {
+    activeUser,
     careplanLoading,
     setCareplanLoading,
     careplanListLoading,
@@ -86,7 +87,9 @@ const Careplan = () => {
               r51={"Zip Code"}
               r52={resident.zipCode}
               r61={"Care Giver"}
-              r62={resident.caregiver ? resident.caregiver : "Unassigned"}
+              r62={
+                resident.caregiverName ? resident.caregiverName : "Unassigned"
+              }
             />
             <ButtonWidget
               width={"182px"}
@@ -120,7 +123,11 @@ const Careplan = () => {
                   r51={"Zip Code"}
                   r52={resident.zipCode}
                   r61={"Care Giver"}
-                  r62={resident.caregiver ? resident.caregiver : "Unassigned"}
+                  r62={
+                    resident.caregiverName
+                      ? resident.caregiverName
+                      : "Unassigned"
+                  }
                 />
                 <ButtonWidget
                   width={"182px"}
@@ -152,14 +159,18 @@ const Careplan = () => {
               r51={"Zip Code"}
               r52={resident.zipCode}
               r61={"Care Giver"}
-              r62={resident.caregiver ? resident.caregiver : "Unassigned"}
+              r62={
+                resident.caregiverName ? resident.caregiverName : "Unassigned"
+              }
             />
-            <ButtonWidget
-              width={"182px"}
-              height={"60px"}
-              text={"Add Activity"}
-              onclick={() => addHandler()}
-            />
+            {activeUser.role === "admin" && (
+              <ButtonWidget
+                width={"182px"}
+                height={"60px"}
+                text={"Add Activity"}
+                onclick={() => addHandler()}
+              />
+            )}
           </TopContainerWidget>
           {careplanListLoading ? <CircleSpinner /> : <CareplanActivityWidget />}
         </>

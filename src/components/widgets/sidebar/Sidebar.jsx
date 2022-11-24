@@ -11,11 +11,15 @@ import {
 } from "./Sidebar.Styles";
 
 //Logo
-let logo = "Logo";
+// let logo = "Logo";
 
 const Sidebar = () => {
-  const { setTopbarTitle, setCaregiverHandler, setResidentHandler } =
-    useContext(AppContext);
+  const {
+    activeUser,
+    setTopbarTitle,
+    setCaregiverHandler,
+    setResidentHandler,
+  } = useContext(AppContext);
 
   const caregiverHandler = () => {
     setTopbarTitle("Support Workers");
@@ -44,25 +48,51 @@ const Sidebar = () => {
             </SidebarLogo>
           </SidebarTop>
 
-          <SidebarDown>
-            <NavLink
-              onClick={() => caregiverHandler()}
-              activeClassName="active"
-              exact
-              to="/admin/caregivers"
-            >
-              <span className="bx bx-category-alt"></span>
-              <h3>Support Workers</h3>
-            </NavLink>
-            <NavLink
-              onClick={() => residentHandler()}
-              activeClassName="active"
-              to="/admin/residents"
-            >
-              <span className="bx bx-user-pin"></span>
-              <h3>Residents</h3>
-            </NavLink>
-          </SidebarDown>
+          {/* Admin */}
+          {activeUser?.role === "admin" && (
+            <SidebarDown>
+              <NavLink
+                onClick={() => caregiverHandler()}
+                activeClassName="active"
+                exact
+                to="/admin/caregivers"
+              >
+                <span className="bx bx-category-alt"></span>
+                <h3>Support Workers</h3>
+              </NavLink>
+              <NavLink
+                onClick={() => residentHandler()}
+                activeClassName="active"
+                to="/admin/residents"
+              >
+                <span className="bx bx-user-pin"></span>
+                <h3>Residents</h3>
+              </NavLink>
+            </SidebarDown>
+          )}
+
+          {/* care giver */}
+          {activeUser?.role === "care-giver" && (
+            <SidebarDown>
+              <NavLink
+                onClick={() => caregiverHandler()}
+                activeClassName="active"
+                exact
+                to="/caregiver/checkinout"
+              >
+                <span className="bx bx-time"></span>
+                <h3>Check In/Out</h3>
+              </NavLink>
+              <NavLink
+                onClick={() => residentHandler()}
+                activeClassName="active"
+                to="/caregiver/residents"
+              >
+                <span className="bx bx-user-pin"></span>
+                <h3>Residents</h3>
+              </NavLink>
+            </SidebarDown>
+          )}
         </Wrapper>
       </aside>
     </>

@@ -40,6 +40,25 @@ export const Right = styled.div`
   padding-left: 1rem;
 `;
 
+export const End = styled.div`
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border-left: 2px solid black; */
+  padding-left: 1rem;
+
+  i {
+    font-size: 35px;
+    cursor: pointer;
+
+    &:hover {
+      color: orange;
+    }
+  }
+`;
+
 export const Row = styled.div`
   /* background-color: yellow; */
   display: flex;

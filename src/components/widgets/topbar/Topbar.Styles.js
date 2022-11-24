@@ -27,7 +27,7 @@ export const Left = styled.div`
 
 export const Right = styled.div`
   /* background-color: var(--text-grey); */
-  width: 280px;
+  min-width: 280px;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -45,7 +45,7 @@ export const Right = styled.div`
 export const NameRoleImage = styled.div`
   /* background-color: orange; */
   /* padding: 0 1rem; */
-  width: 200px;
+  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -54,7 +54,7 @@ export const NameRoleImage = styled.div`
 `;
 
 export const NameRole = styled.div`
-  width: 50%;
+  min-width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;

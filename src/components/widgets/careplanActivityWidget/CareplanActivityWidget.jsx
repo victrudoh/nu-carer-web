@@ -19,6 +19,7 @@ import { CircleSpinner } from "../circleSpinner/CircleSpinner.Styles";
 
 const CareplanActivityWidget = () => {
   const {
+    activeUser,
     careplan,
     residentHandler,
     setResidentHandler,
@@ -79,13 +80,13 @@ const CareplanActivityWidget = () => {
         <>
           {allActivities.map((activity) =>
             careplan?.map(
-              (careplan) =>
+              (careplan, i) =>
                 activity._id === careplan.activityId && (
-                  <>
-                    <Wrapper>
-                      <Content>
-                        <Top>
-                          <TopLeft>{activity.name}</TopLeft>
+                  <Wrapper key={i}>
+                    <Content>
+                      <Top>
+                        <TopLeft>{activity.name}</TopLeft>
+                        {activeUser.role === "admin" && (
                           <TopRight>
                             <div
                               className="pair edit mx-3"
@@ -102,20 +103,20 @@ const CareplanActivityWidget = () => {
                               <i className="bx bxs-trash"></i>
                             </div>
                           </TopRight>
-                        </Top>
-                        <Bottom>
-                          <Assessment>
-                            <h5>Assessment</h5>
-                            <h6>{careplan.assessment}</h6>
-                          </Assessment>
-                          <Assessment>
-                            <h5>Comment</h5>
-                            <h6>{careplan.comment}</h6>
-                          </Assessment>
-                        </Bottom>
-                      </Content>
-                    </Wrapper>
-                  </>
+                        )}
+                      </Top>
+                      <Bottom>
+                        <Assessment>
+                          <h5>Assessment</h5>
+                          <h6>{careplan.assessment}</h6>
+                        </Assessment>
+                        <Assessment>
+                          <h5>Comment</h5>
+                          <h6>{careplan.comment}</h6>
+                        </Assessment>
+                      </Bottom>
+                    </Content>
+                  </Wrapper>
                 )
             )
           )}

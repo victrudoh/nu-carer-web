@@ -27,6 +27,9 @@ export const AppProvider = ({ children }) => {
   const [addResidentLoading, setAddResidentLoading] = useState(false);
   const [careplanLoading, setCareplanLoading] = useState(false);
   const [careplanListLoading, setCareplanListLoading] = useState(false);
+  // Caregiver
+  const [carerLoading, setCarerloading] = useState(false);
+  const [assignedResidentLoading, setAssignedResidentLoading] = useState(false);
 
   /************
    *********
@@ -41,7 +44,7 @@ export const AppProvider = ({ children }) => {
   */
 
   // active admin
-  const [activeAdmin, setActiveAdmin] = useState();
+  const [activeUser, setActiveUser] = useState();
 
   // ***ADMIN CAREGIVER*** //
   // When an option for a caregiver is selected
@@ -76,6 +79,9 @@ export const AppProvider = ({ children }) => {
   const [allActivities, setAllActivities] = useState([]);
   const [careplan, setCareplan] = useState([]);
 
+  // ***CAREGIVER*** //
+  const [assignedResidents, setAssignedResidents] = useState([]);
+
   /************
    *********
    ********
@@ -90,7 +96,7 @@ export const AppProvider = ({ children }) => {
 
   // ADMIN
   // get active admin
-  const activeUser = async () => {
+  const getActiveUser = async () => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await axios.get(
@@ -105,7 +111,7 @@ export const AppProvider = ({ children }) => {
       //   "🚀 ~ file: AppContext.js ~ line 72 ~ activeUser ~ response",
       //   response
       // );
-      setActiveAdmin(response.data.data.admin);
+      setActiveUser(response.data.data.user);
     } catch (error) {
       console.log("~ activeUser ~ error", error);
     }
@@ -205,7 +211,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // fetch Residet by ID
+  // fetch Resident by ID
   const getResident = async () => {
     try {
       setAddResidentLoading(true);
@@ -247,10 +253,10 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: CareplanActivityWidget.jsx ~ line 30 ~ allActivities ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: CareplanActivityWidget.jsx ~ line 30 ~ allActivities ~ response",
+      //   response
+      // );
       setAllActivities((await response).data.data.activities);
     } catch (error) {
       console.log(
@@ -273,14 +279,6 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      // const response = await axios.get(
-      //   `http://localhost:4000/api/admin/resident/careplan?residentId=637558a266b3adb51f3c4a43`,
-      //   {
-      //     headers: {
-      //       "content-type": "application/json",
-      //     },
-      //   }
-      // );
       // console.log("getCareplan ~ response", response);
       setCareplan(response.data.data);
       setCareplanLoading(false);
@@ -295,6 +293,35 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // CAREGIVERS
+  // get all assigned residents
+  const getAssignedResidents = async () => {
+    try {
+      // console.log("acttive user: ", activeUser);
+      setCarerloading(true);
+      const response = await axios.get(
+        `https://nu-carer-api.herokuapp.com/api/caregiver/residents?id=${activeUser?._id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 318 ~ getAssignedResidents ~ response",
+      //   response
+      // );
+      setAssignedResidents(response.data.data.residents);
+      setCarerloading(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 320 ~ getAssignedResidents ~ error",
+        error
+      );
+      setCarerloading(false);
+    }
+  };
+
   /* ***********
    *********
    ********
@@ -302,15 +329,26 @@ export const AppProvider = ({ children }) => {
 
   // ****Fetch Everything ****//
   useEffect(() => {
-    activeUser();
-
-    // ADMIN (Caregiver)
-    getAllCaregivers();
-
-    // ADMIN (Resident)
-    getAllResidents();
-    getAllActivities();
+    getActiveUser();
   }, []);
+
+  useEffect(() => {
+    // admin
+    if (activeUser?.role === "admin") {
+      // ADMIN (Caregiver)
+      getAllCaregivers();
+
+      // ADMIN (Resident)
+      getAllResidents();
+    }
+
+    getAllActivities();
+
+    // caregiver
+    if (activeUser?.role === "care-giver") {
+      getAssignedResidents();
+    }
+  }, [activeUser]);
 
   useEffect(() => {
     getCaregiver();
@@ -363,6 +401,13 @@ export const AppProvider = ({ children }) => {
         setCareplanListLoading,
         setAssignCaregiverLoading,
 
+        //  Regular caregiver
+        carerLoading,
+        assignedResidentLoading,
+
+        setCarerloading,
+        setAssignedResidentLoading,
+
         /* ***********
          *********
          ********
@@ -373,9 +418,9 @@ export const AppProvider = ({ children }) => {
           ***********
           ADMIN
         */
-        activeAdmin,
+        activeUser,
 
-        setActiveAdmin,
+        setActiveUser,
 
         // Admin Caregiver
         allCaregivers,
@@ -403,6 +448,11 @@ export const AppProvider = ({ children }) => {
         setAllActivities,
 
         getCareplan,
+
+        // CAREGIVERS
+        assignedResidents,
+
+        setAssignedResidents,
 
         /* ***********
          *********
