@@ -29,6 +29,7 @@ export const AppProvider = ({ children }) => {
   const [careplanListLoading, setCareplanListLoading] = useState(false);
   // Caregiver
   const [carerLoading, setCarerloading] = useState(false);
+  const [checkInOutLoading, setCheckInOutloading] = useState(false);
   const [assignedResidentLoading, setAssignedResidentLoading] = useState(false);
 
   /************
@@ -403,9 +404,11 @@ export const AppProvider = ({ children }) => {
 
         //  Regular caregiver
         carerLoading,
+        checkInOutLoading,
         assignedResidentLoading,
 
         setCarerloading,
+        setCheckInOutloading,
         setAssignedResidentLoading,
 
         /* ***********

@@ -19,6 +19,7 @@ import Careplan from "../../pages/admin/residents/careplan/Careplan";
 
 // ****CARE GIVERS
 import CGResidents from "../../pages/caregiver/residents/CGResidents";
+import CheckInOut from "../../pages/caregiver/checkInOut/CheckInOut";
 
 const AppRoutes = () => {
   const { activeUser } = useContext(AppContext);
@@ -48,6 +49,7 @@ const AppRoutes = () => {
           <>
             <Route path="/caregiver/residents" element={<CGResidents />} />
             <Route path="/caregiver/residents/view" element={<Careplan />} />
+            <Route path="/caregiver/checkinout" element={<CheckInOut />} />
           </>
         )}
         <Route path="*" element={<Error404 />} />

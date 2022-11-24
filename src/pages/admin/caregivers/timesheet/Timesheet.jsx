@@ -112,6 +112,7 @@ const Timesheet = () => {
             <tr>
               <th scope="col">Check-in Date</th>
               <th scope="col">Check-in Time</th>
+              <th scope="col">Check-out Date</th>
               <th scope="col">Check-out Time</th>
             </tr>
           </thead>
@@ -121,16 +122,20 @@ const Timesheet = () => {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>
                   <CircleSpinner />
                 </td>
               </tr>
             ) : timesheet.length > 0 ? (
-              <tr>
-                <td>Wed, 23 oct 2022</td>
-                <td>19:00</td>
-                <td>8:45</td>
-              </tr>
+              timesheet.map((item, i) => (
+                <tr key={i}>
+                  <td>{item.checkInDate}</td>
+                  <td>{item.checkInTime}</td>
+                  <td>{item.checkOutDate}</td>
+                  <td>{item.checkOutTime}</td>
+                </tr>
+              ))
             ) : (
               <tr>
                 <td></td>
@@ -139,6 +144,7 @@ const Timesheet = () => {
                     No Timesheet Record available for this Support Worker
                   </strong>
                 </td>
+                <td></td>
                 <td></td>
               </tr>
             )}

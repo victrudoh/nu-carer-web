@@ -17,10 +17,6 @@ const CGResidents = () => {
     setResidentHandler,
     residentHandler,
   } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: CGResidents.jsx ~ line 15 ~ CGResidents ~ residentHandler",
-    residentHandler
-  );
 
   let SN = 0;
   const navigate = useNavigate();
