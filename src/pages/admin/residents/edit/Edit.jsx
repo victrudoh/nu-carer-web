@@ -33,6 +33,7 @@ const Edit = () => {
     gPName: "",
     gPphone: "",
     healthCondition: "",
+    medication: "",
     hobbies: "",
     media: "",
   });
@@ -245,6 +246,16 @@ const Edit = () => {
                   required
                   onChange={(e) => onchangeHandler(e)}
                   defaultValue={editResident.hobbies}
+                />
+                <Inputwidget
+                  name={"medication"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Medication"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={editResident.medication}
                 />
               </RowWidget>
             </Content>

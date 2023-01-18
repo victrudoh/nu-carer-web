@@ -33,6 +33,7 @@ const Add = () => {
     gPName: "",
     gPphone: "",
     healthCondition: "",
+    medication: "",
     hobbies: "",
     media: "",
   });
@@ -233,6 +234,16 @@ const Add = () => {
                   required
                   onChange={(e) => onchangeHandler(e)}
                   defaultValue={newResident.hobbies}
+                />
+                <Inputwidget
+                  name={"medication"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Medication"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.medication}
                 />
               </RowWidget>
             </Content>

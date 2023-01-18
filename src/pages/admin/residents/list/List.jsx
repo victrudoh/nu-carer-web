@@ -263,9 +263,9 @@ const List = () => {
                             <option value={`careplan ${item._id}`}>
                               View Care plan
                             </option>
-                            <option value={`report ${item._id}`}>
+                            {/* <option value={`report ${item._id}`}>
                               View Report sheet
-                            </option>
+                            </option> */}
                             <option value={`edit ${item._id}`}>Edit</option>
                             <option value={`delete ${item._id}`}>Delete</option>
                           </select>
