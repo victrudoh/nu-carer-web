@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/AppContext";
 import axios from "axios";
@@ -9,6 +9,8 @@ import { Wrapper } from "./CGResidents.Styles";
 
 // widgets
 import ContainerWidget from "../../../components/widgets/containerWidget/ContainerWidget";
+import TopContainerWidget from "../../../components/widgets/topContainerWidget/TopContainer";
+import SearchWidget from "../../../components/widgets/searchWidget/SearchWidget";
 
 const CGResidents = () => {
   const {
@@ -17,9 +19,14 @@ const CGResidents = () => {
     setResidentHandler,
     residentHandler,
   } = useContext(AppContext);
+  // console.log(
+  //   "🚀 ~ file: CGResidents.jsx:22 ~ CGResidents ~ assignedResidents",
+  //   assignedResidents
+  // );
 
   let SN = 0;
   const navigate = useNavigate();
+  const [filtered, setFiltered] = useState([]);
 
   const viewHandler = async (id) => {
     await setResidentHandler(() => ({
@@ -30,8 +37,32 @@ const CGResidents = () => {
     navigate("/caregiver/residents/view");
   };
 
+  // SearchBar Handler
+  const onSearchChangeHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const filteredUser = assignedResidents.filter((item) =>
+        item.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+      );
+      setFiltered(filteredUser);
+    } catch (err) {
+      return err;
+    }
+  };
+
+  useEffect(() => {
+    setFiltered(assignedResidents);
+  }, []);
+
   return (
     <>
+      <TopContainerWidget>
+        <SearchWidget
+          placeholder={"Search name"}
+          name={"search"}
+          onChange={(e) => onSearchChangeHandler(e)}
+        />
+      </TopContainerWidget>
       <Wrapper>
         {carerLoading ? (
           <CircleSpinner />
@@ -64,8 +95,8 @@ const CGResidents = () => {
                   </tr>
                 ) : (
                   <>
-                    {assignedResidents.length > 0 ? (
-                      assignedResidents.map((item, i) => (
+                    {filtered.length > 0 ? (
+                      filtered.map((item, i) => (
                         <tr key={i}>
                           <td>{(SN = SN + 1)}</td>
                           <td>{item.name}</td>

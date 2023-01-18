@@ -38,7 +38,7 @@ const Summary = () => {
     try {
       setCaregiverLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -65,7 +65,7 @@ const Summary = () => {
     try {
       setCaregiverListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/report?id=${caregiver._id}&from=${filterParams.from}&to=${filterParams.to}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/report?id=${caregiver._id}&from=${filterParams.from}&to=${filterParams.to}`,
         {
           headers: {
             "content-type": "application/json",

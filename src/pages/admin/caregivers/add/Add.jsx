@@ -48,7 +48,7 @@ const Add = () => {
     try {
       setAddCaregiverLoading(true);
       const response = await axios.post(
-        "https://nu-carer-api.herokuapp.com/api/admin/caregiver/add",
+        "https://wecare-api.onrender.com/api/admin/caregiver/add",
         newCaregiver,
         {
           headers: {
@@ -64,7 +64,7 @@ const Add = () => {
         closeHandler();
       }
     } catch (err) {
-      error("Psych");
+      error("couldn't create care giver");
       console.log(err);
       setAddCaregiverLoading(false);
     }

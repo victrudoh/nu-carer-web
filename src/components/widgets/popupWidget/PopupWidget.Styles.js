@@ -25,6 +25,10 @@ export const Content = styled.div`
   border: 1px solid #ffffff;
   border-radius: 30px;
   padding: 2rem;
+
+  @media only screen and (min-width: 992px) and (max-width: 1199px) {
+    width: 50%;
+  }
 `;
 
 export const Title = styled.div`

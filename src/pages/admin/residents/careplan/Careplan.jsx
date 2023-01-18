@@ -32,7 +32,7 @@ const Careplan = () => {
     try {
       setCareplanLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/one?id=${residentHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/resident/one?id=${residentHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -65,6 +65,40 @@ const Careplan = () => {
     });
   };
 
+  // Send report handler
+  const fetchReportHandler = async () => {
+    try {
+      setCareplanLoading(true);
+      const response = await axios.get(
+        `https://wecare-api.onrender.com/api/caregiver/report?residentId=${residentHandler.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: Careplan.jsx:80 ~ sendReportHandler ~ response",
+        response
+      );
+      // setResident(response.data.data.resident);
+      setCareplanLoading(false);
+      setResidentHandler({
+        ...residentHandler,
+        careplan: {
+          action: "report",
+          activity: {},
+        },
+      });
+    } catch (error) {
+      setCareplanLoading(false);
+      console.log(
+        "🚀 ~ file: Careplan.jsx:84 ~ sendReportHandler ~ error",
+        error
+      );
+    }
+  };
+
   useEffect(() => {
     getResident();
   }, []);
@@ -80,12 +114,12 @@ const Careplan = () => {
               r12={resident.name}
               r21={"Age"}
               r22={resident.age}
-              r31={"Contact"}
-              r32={resident.phone}
+              r31={"Health Condition"}
+              r32={resident.healthCondition}
               r41={"Address"}
               r42={resident.address}
-              r51={"Zip Code"}
-              r52={resident.zipCode}
+              r51={"Next Of Kin"}
+              r52={resident.nextOfKin}
               r61={"Care Giver"}
               r62={
                 resident.caregiverName ? resident.caregiverName : "Unassigned"
@@ -116,12 +150,12 @@ const Careplan = () => {
                   r12={resident.name}
                   r21={"Age"}
                   r22={resident.age}
-                  r31={"Contact"}
-                  r32={resident.phone}
+                  r31={"Health Condition"}
+                  r32={resident.healthCondition}
                   r41={"Address"}
                   r42={resident.address}
-                  r51={"Zip Code"}
-                  r52={resident.zipCode}
+                  r51={"Next Of Kin"}
+                  r52={resident.nextOfKin}
                   r61={"Care Giver"}
                   r62={
                     resident.caregiverName
@@ -152,12 +186,12 @@ const Careplan = () => {
               r12={resident.name}
               r21={"Age"}
               r22={resident.age}
-              r31={"Contact"}
-              r32={resident.phone}
+              r31={"Health Condition"}
+              r32={resident.healthCondition}
               r41={"Address"}
               r42={resident.address}
-              r51={"Zip Code"}
-              r52={resident.zipCode}
+              r51={"Next Of Kin"}
+              r52={resident.nextOfKin}
               r61={"Care Giver"}
               r62={
                 resident.caregiverName ? resident.caregiverName : "Unassigned"
@@ -169,6 +203,14 @@ const Careplan = () => {
                 height={"60px"}
                 text={"Add Activity"}
                 onclick={() => addHandler()}
+              />
+            )}
+            {activeUser.role === "care-giver" && (
+              <ButtonWidget
+                width={"182px"}
+                height={"60px"}
+                text={"Fetch Report"}
+                onclick={() => fetchReportHandler()}
               />
             )}
           </TopContainerWidget>

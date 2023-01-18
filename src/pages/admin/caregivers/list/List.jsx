@@ -48,7 +48,7 @@ const List = () => {
     try {
       setCaregiverListLoading(true);
       const response = await axios.delete(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/delete?id=${id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/delete?id=${id}`,
         {},
         {
           headers: {

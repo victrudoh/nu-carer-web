@@ -47,7 +47,7 @@ const Login = () => {
     try {
       setAuthLoading(true);
       const response = await axios.post(
-        "https://nu-carer-api.herokuapp.com/api/auth/login",
+        "https://wecare-api.onrender.com/api/auth/login",
         loginDetails,
         {
           headers: {

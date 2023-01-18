@@ -72,7 +72,7 @@ const Register = () => {
     try {
       setAuthLoading(true);
       const response = await axios.post(
-        "https://nu-carer-api.herokuapp.com/api/auth/register",
+        "https://wecare-api.onrender.com/api/auth/register",
         newAdmin,
         {
           headers: {

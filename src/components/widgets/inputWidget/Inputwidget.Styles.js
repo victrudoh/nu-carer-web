@@ -23,13 +23,13 @@ export const Input = styled.input`
 
   // Small PC
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    width: ${(props) => (props.width === "md" ? "170px" : "400px")};
+    width: ${(props) => (props.width ? "170px" : "400px")};
     height: ${(props) => (props.width === "md" ? "40px" : "60px")};
   }
 
   // TAB
   @media only screen and (min-width: 768px) and (max-width: 991px) {
-    width: ${(props) => (props.width === "md" ? "170px" : "400px")};
+    width: ${(props) => (props.width ? "170px" : "400px")};
     height: 50px;
   }
 

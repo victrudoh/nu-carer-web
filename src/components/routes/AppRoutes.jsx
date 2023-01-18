@@ -15,6 +15,7 @@ import Timesheet from "../../pages/admin/caregivers/timesheet/Timesheet";
 import Residents from "../../pages/admin/residents/Residents";
 import ResidentSummary from "../../pages/admin/residents/summary/Summary";
 import Careplan from "../../pages/admin/residents/careplan/Careplan";
+import Report from "../../pages/admin/residents/report/Report";
 // *********
 
 // ****CARE GIVERS
@@ -24,7 +25,6 @@ import CheckInOut from "../../pages/caregiver/checkInOut/CheckInOut";
 const AppRoutes = () => {
   const { activeUser } = useContext(AppContext);
 
-  console.log("AppRoutes");
   return (
     <Routes>
       <Route path="/" element={<Layed />}>
@@ -41,12 +41,14 @@ const AppRoutes = () => {
               element={<ResidentSummary />}
             />
             <Route path="/admin/residents/careplan" element={<Careplan />} />
+            <Route path="/admin/residents/report" element={<Report />} />
           </>
         )}
 
         {/* Care Giver */}
         {activeUser?.role === "care-giver" && (
           <>
+            <Route index element={<CheckInOut />} />
             <Route path="/caregiver/residents" element={<CGResidents />} />
             <Route path="/caregiver/residents/view" element={<Careplan />} />
             <Route path="/caregiver/checkinout" element={<CheckInOut />} />

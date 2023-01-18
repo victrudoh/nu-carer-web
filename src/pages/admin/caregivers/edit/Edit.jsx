@@ -45,7 +45,7 @@ const Edit = () => {
     try {
       setAddCaregiverLoading(true);
       const response = await axios.post(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/edit?id=${caregiverHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/edit?id=${caregiverHandler.id}`,
         editCaregiver,
         {
           headers: {

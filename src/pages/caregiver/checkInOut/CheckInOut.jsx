@@ -34,7 +34,7 @@ const CheckInOut = () => {
     try {
       setCaregiverListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/timesheet?id=${activeUser._id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/timesheet?id=${activeUser._id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -61,7 +61,7 @@ const CheckInOut = () => {
     try {
       setCheckInOutloading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/caregiver/check-in?id=${activeUser._id}`
+        `https://wecare-api.onrender.com/api/caregiver/check-in?id=${activeUser._id}`
       );
       console.log(
         "🚀 ~ file: CheckInOut.jsx ~ line 58 ~ checkInHandler ~ response",
@@ -87,7 +87,7 @@ const CheckInOut = () => {
     try {
       setCheckInOutloading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/caregiver/check-out?id=${activeUser._id}`
+        `https://wecare-api.onrender.com/api/caregiver/check-out?id=${activeUser._id}`
       );
       console.log(
         "🚀 ~ file: CheckInOut.jsx ~ line 58 ~ checkInHandler ~ response",

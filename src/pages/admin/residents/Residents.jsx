@@ -24,6 +24,13 @@ const Residents = () => {
           <Edit />
         </>
       );
+    } else if (residentHandler.action === "report") {
+      return (
+        <>
+          <List />
+          <Edit />
+        </>
+      );
     } else {
       return <List />;
     }

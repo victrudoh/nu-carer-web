@@ -48,7 +48,7 @@ const CareplanActivityWidget = () => {
     try {
       setCareplanListLoading(true);
       const response = await axios.delete(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/delete-careplan-activity?careplanId=${id}`,
+        `https://wecare-api.onrender.com/api/admin/resident/delete-careplan-activity?careplanId=${id}`,
         {
           headers: {
             "content-type": "application/json",

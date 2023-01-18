@@ -5,11 +5,11 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   /*
-    ********
-    *********
-    ***********
-    MISC
-  */
+        ********
+        *********
+        ***********
+        MISC
+      */
 
   // Topbar Title
   const [topbarTitle, setTopbarTitle] = useState("Dashboard");
@@ -38,11 +38,11 @@ export const AppProvider = ({ children }) => {
    */
 
   /*
-    ********
-    *********
-    ***********
-    ADMIN
-  */
+        ********
+        *********
+        ***********
+        ADMIN
+      */
 
   // active admin
   const [activeUser, setActiveUser] = useState();
@@ -82,6 +82,7 @@ export const AppProvider = ({ children }) => {
 
   // ***CAREGIVER*** //
   const [assignedResidents, setAssignedResidents] = useState([]);
+  const [residentReport, setResidentReport] = useState([]);
 
   /************
    *********
@@ -89,11 +90,11 @@ export const AppProvider = ({ children }) => {
    */
 
   /*
-    ********
-    *********
-    ***********
-    FUNCTIONS
-  */
+        ********
+        *********
+        ***********
+        FUNCTIONS
+      */
 
   // ADMIN
   // get active admin
@@ -101,7 +102,7 @@ export const AppProvider = ({ children }) => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/active?id=${userId}`,
+        `https://wecare-api.onrender.com/api/admin/active?id=${userId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -123,7 +124,7 @@ export const AppProvider = ({ children }) => {
     try {
       setCaregiverListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/all`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/all`,
         {
           headers: {
             "content-type": "application/json",
@@ -150,7 +151,7 @@ export const AppProvider = ({ children }) => {
     try {
       setAddCaregiverLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -190,7 +191,7 @@ export const AppProvider = ({ children }) => {
     try {
       setResidentListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/all`,
+        `https://wecare-api.onrender.com/api/admin/resident/all`,
         {
           headers: {
             "content-type": "application/json",
@@ -217,7 +218,7 @@ export const AppProvider = ({ children }) => {
     try {
       setAddResidentLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/one?id=${residentHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/resident/one?id=${residentHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -246,8 +247,8 @@ export const AppProvider = ({ children }) => {
   const getAllActivities = async () => {
     try {
       const response = axios.get(
-        // `http://localhost:4000/api/admin/activity/all`,
-        `https://nu-carer-api.herokuapp.com/api/admin/activity/all`,
+        // `https://wecare-api.onrender.com/api/admin/activity/all`,
+        `https://wecare-api.onrender.com/api/admin/activity/all`,
         {
           headers: {
             "content-type": "application/json",
@@ -273,7 +274,7 @@ export const AppProvider = ({ children }) => {
       setCareplanLoading(true);
       setCareplanListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/careplan?residentId=${residentHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/resident/careplan?residentId=${residentHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -301,7 +302,7 @@ export const AppProvider = ({ children }) => {
       // console.log("acttive user: ", activeUser);
       setCarerloading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/caregiver/residents?id=${activeUser?._id}`,
+        `https://wecare-api.onrender.com/api/caregiver/residents?id=${activeUser?._id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -367,11 +368,11 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         /*
-          ********
-          *********
-          ***********
-          MISC
-        */
+                          ********
+                          *********
+                          ***********
+                          MISC
+                        */
         topbarTitle,
         authLoading,
 
@@ -416,11 +417,11 @@ export const AppProvider = ({ children }) => {
          ********
          */
         /*
-          ********
-          *********
-          ***********
-          ADMIN
-        */
+                          ********
+                          *********
+                          ***********
+                          ADMIN
+                        */
         activeUser,
 
         setActiveUser,
@@ -436,9 +437,11 @@ export const AppProvider = ({ children }) => {
 
         // Admin Resident
         allResidents,
+        residentReport,
         residentHandler,
 
         setAllResidents,
+        setResidentReport,
         setResidentHandler,
 
         getAllResidents,

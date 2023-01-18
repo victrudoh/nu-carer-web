@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div `
   .gender {
     display: flex;
     flex-direction: column;
@@ -24,4 +24,10 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-evenly;
   }
+`;
+
+export const Content = styled.div `
+  max-height: 36rem;
+  overflow-y: auto;
+  /* background: red; */
 `;

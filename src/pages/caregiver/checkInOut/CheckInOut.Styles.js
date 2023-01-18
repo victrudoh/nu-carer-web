@@ -17,5 +17,5 @@ export const Right = styled.div`
   align-items: center;
   justify-content: space-around;
   gap: 0;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 `;

@@ -45,7 +45,7 @@ const Edit = () => {
     try {
       setAddResidentLoading(true);
       const response = await axios.put(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/edit-careplan-activity?residentId=${residentHandler.id}&activityId=${editActivity.activityId}`,
+        `https://wecare-api.onrender.com/api/admin/resident/edit-careplan-activity?residentId=${residentHandler.id}&activityId=${editActivity.activityId}`,
         editActivity,
         {
           headers: {

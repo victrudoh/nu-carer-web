@@ -5,7 +5,7 @@ import { success, error } from "../../../../helpers/Alert";
 import CloudinaryUpload from "../../../../middlewares/CloudinaryUpload";
 
 // Styles
-import { Wrapper } from "./Add.Styles";
+import { Content, Wrapper } from "./Add.Styles";
 
 // Widgets
 import RowWidget from "../../../../components/widgets/rowWidget/RowWidget";
@@ -26,10 +26,14 @@ const Add = () => {
   const [newResident, setNewResident] = useState({
     name: "",
     age: "",
-    phone: "",
-    address: "",
-    zipCode: "",
     gender: "",
+    dateAdmitted: "",
+    address: "",
+    nextOfKin: "",
+    gPName: "",
+    gPphone: "",
+    healthCondition: "",
+    hobbies: "",
     media: "",
   });
 
@@ -46,7 +50,7 @@ const Add = () => {
     try {
       setAddResidentLoading(true);
       const response = await axios.post(
-        "https://nu-carer-api.herokuapp.com/api/admin/resident/add",
+        "https://wecare-api.onrender.com/api/admin/resident/add",
         newResident,
         {
           headers: {
@@ -62,7 +66,7 @@ const Add = () => {
         closeHandler();
       }
     } catch (err) {
-      error("Psych");
+      error("Couldn't Add Resident");
       console.log(err);
       setAddResidentLoading(false);
     }
@@ -99,88 +103,139 @@ const Add = () => {
       <Wrapper>
         <PopupWidget title={"Add Resident"}>
           <form onSubmit={submit}>
-            <RowWidget>
-              <Inputwidget
-                name={"name"}
-                width={"450px"}
-                height={"45px"}
-                label={"Name"}
-                type={"text"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.name}
-              />
-              <Inputwidget
-                name={"age"}
-                width={"450px"}
-                height={"45px"}
-                label={"Age"}
-                type={"number"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.age}
-              />
-            </RowWidget>
-            <RowWidget>
-              <Inputwidget
-                name={"media"}
-                width={"450px"}
-                height={"45px"}
-                label={"Display photo"}
-                type={"file"}
-                onChange={(e) => onFileChangeHandler(e)}
-                defaultValue={newResident.media}
-              />
-              <Inputwidget
-                name={"phone"}
-                width={"450px"}
-                height={"45px"}
-                label={"Phone Number"}
-                type={"text"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.phone}
-              />
-            </RowWidget>
-            <RowWidget>
-              <Inputwidget
-                name={"zipCode"}
-                width={"450px"}
-                height={"45px"}
-                label={"Zip Code"}
-                type={"text"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.zipCode}
-              />
-              <Inputwidget
-                name={"address"}
-                width={"450px"}
-                height={"45px"}
-                label={"Contact Address"}
-                type={"text"}
-                required
-                onChange={(e) => onchangeHandler(e)}
-                defaultValue={newResident.address}
-              />
-            </RowWidget>
-            <RowWidget>
-              <div className="gender">
-                <label>Gender</label>
-                <select
-                  name="gender"
-                  id="gender"
+            <Content>
+              <RowWidget>
+                <Inputwidget
+                  name={"name"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Name"}
+                  type={"text"}
                   required
                   onChange={(e) => onchangeHandler(e)}
-                  defaultValue={newResident.gender}
-                >
-                  <option>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </RowWidget>
+                  defaultValue={newResident.name}
+                />
+                <Inputwidget
+                  name={"age"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Age"}
+                  type={"number"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.age}
+                />
+              </RowWidget>
+              <RowWidget>
+                <Inputwidget
+                  name={"media"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Display photo"}
+                  type={"file"}
+                  onChange={(e) => onFileChangeHandler(e)}
+                  defaultValue={newResident.media}
+                />
+                <Inputwidget
+                  name={"dateAdmitted"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Date admitted"}
+                  type={"date"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.dateAdmitted}
+                />
+              </RowWidget>
+              <RowWidget>
+                <Inputwidget
+                  name={"nextOfKin"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Next of kin"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.nextOfKin}
+                />
+                <Inputwidget
+                  name={"address"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Contact Address"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.address}
+                />
+              </RowWidget>
+              <RowWidget>
+                <Inputwidget
+                  name={"gPName"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"GP Name"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.gPName}
+                />
+                <Inputwidget
+                  name={"gPphone"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"GP Phone"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.gPphone}
+                />
+              </RowWidget>
+              <RowWidget>
+                <div className="gender">
+                  <label>Gender</label>
+                  <select
+                    name="gender"
+                    id="gender"
+                    required
+                    onChange={(e) => onchangeHandler(e)}
+                    defaultValue={newResident.gender}
+                  >
+                    <option>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Rather not say</option>
+                  </select>
+                </div>
+                <div className="gender">
+                  <label>Health condition</label>
+                  <select
+                    name="healthCondition"
+                    id="healthCondition"
+                    required
+                    onChange={(e) => onchangeHandler(e)}
+                    defaultValue={newResident.healthCondition}
+                  >
+                    <option>Select health condition</option>
+                    <option value="blood Pressure">Blood Pressure</option>
+                    <option value="dementia">Dementia</option>
+                    <option value="parkison">Parkison</option>
+                  </select>
+                </div>
+              </RowWidget>
+              <RowWidget>
+                <Inputwidget
+                  name={"hobbies"}
+                  width={"450px"}
+                  height={"45px"}
+                  label={"Hobbies"}
+                  type={"text"}
+                  required
+                  onChange={(e) => onchangeHandler(e)}
+                  defaultValue={newResident.hobbies}
+                />
+              </RowWidget>
+            </Content>
             <div className="bottom">
               {addResidentLoading ? (
                 <CircleSpinner />

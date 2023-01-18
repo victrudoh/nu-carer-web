@@ -31,7 +31,7 @@ const Timesheet = () => {
     try {
       setCaregiverLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/one?id=${caregiverHandler.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -59,7 +59,7 @@ const Timesheet = () => {
     try {
       // setCaregiverListLoading(true);
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/caregiver/timesheet?id=${caregiver._id}`,
+        `https://wecare-api.onrender.com/api/admin/caregiver/timesheet?id=${caregiver._id}`,
         {
           headers: {
             "content-type": "application/json",

@@ -12,14 +12,18 @@ const CloudinaryUpload = async (e) => {
       "https://api.cloudinary.com/v1_1/dg5y5mq02/image/upload",
       formData
     );
-    // console.log(
-    //   "🚀 ~ file: CloudinaryUpload.jsx ~ line 14 ~ CloudinaryUpload ~ response",
-    //   response.data.secure_url
-    // );
+    console.log(
+      "🚀 ~ file: CloudinaryUpload.jsx ~ line 14 ~ CloudinaryUpload ~ response",
+      response.data.secure_url
+    );
 
     return response.data.secure_url;
   } catch (err) {
-    error(err.data.message);
+    console.log(
+      "🚀 ~ file: CloudinaryUpload.jsx:22 ~ CloudinaryUpload ~ err",
+      err
+    );
+    error(err.data?.message);
   }
 };
 

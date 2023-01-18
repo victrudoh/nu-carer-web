@@ -5,7 +5,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* width: 90%; */
+  width: 90%;
+  gap: 1rem;
   margin: 0.5rem auto;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
 `;

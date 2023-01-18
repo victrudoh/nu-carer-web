@@ -51,7 +51,7 @@ const List = () => {
     try {
       setResidentListLoading(true);
       const response = await axios.delete(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/delete?id=${id}`,
+        `https://wecare-api.onrender.com/api/admin/resident/delete?id=${id}`,
         {},
         {
           headers: {
@@ -95,6 +95,13 @@ const List = () => {
         }));
         setResidentLoading(false);
         navigate("/admin/residents/careplan");
+      } else if (e.target.value.split(" ")[0] === "report") {
+        await setResidentHandler(() => ({
+          id: e.target.value.split(" ")[1],
+          action: e.target.value.split(" ")[0],
+        }));
+        setResidentLoading(false);
+        navigate("/admin/residents/report");
       } else if (e.target.value.split(" ")[0] === "delete") {
         Deletehandler(e.target.value.split(" ")[1]);
         setResidentLoading(false);
@@ -138,7 +145,7 @@ const List = () => {
       const caregiverId = await e.target.value.split(" ")[0];
       const residentId = await e.target.value.split(" ")[1];
       const response = await axios.get(
-        `https://nu-carer-api.herokuapp.com/api/admin/resident/assign?residentId=${residentId}&caregiverId=${caregiverId}`,
+        `https://wecare-api.onrender.com/api/admin/resident/assign?residentId=${residentId}&caregiverId=${caregiverId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -188,7 +195,7 @@ const List = () => {
               <th scope="col">Name</th>
               <th scope="col">Age</th>
               <th scope="col">Gender</th>
-              <th scope="col">Contact</th>
+              <th scope="col">GP Phone</th>
               <th scope="col">Asign Care Giver</th>
               <th scope="col"></th>
             </tr>
@@ -215,7 +222,7 @@ const List = () => {
                       <td>{item.name}</td>
                       <td>{item.age}</td>
                       <td>{item.gender}</td>
-                      <td>{item.phone}</td>
+                      <td>{item.gPphone}</td>
                       {/* <td> */}
                       {assignCaregiverLoading ? (
                         <td>
@@ -256,9 +263,9 @@ const List = () => {
                             <option value={`careplan ${item._id}`}>
                               View Care plan
                             </option>
-                            {/* <option value={`summary ${item._id}`}>
-                              View Summary sheet
-                            </option> */}
+                            <option value={`report ${item._id}`}>
+                              View Report sheet
+                            </option>
                             <option value={`edit ${item._id}`}>Edit</option>
                             <option value={`delete ${item._id}`}>Delete</option>
                           </select>
